@@ -31,9 +31,13 @@ public class CurrencyConverter {
             in.close();
 
             // Print the response
-            System.out.println("Response: " + response.toString());
+            String [] output;
+            output = response.toString().split(",");
 
-            // Now you can parse the response as needed.
+            for (String s : output) {
+                System.out.println(s);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
