@@ -6,39 +6,34 @@ import java.net.URL;
 
 public class CurrencyConverter {
     public static void main(String[] args) {
-        String apiKey = "691b8b16ea3f2b197ffc3beba516d080";
-        String baseCurrency = "USD"; // The currency you want to exchange from
-        String targetCurrency = "EUR"; // The currency you want to exchange to
-        double amountToConvert = 100.0; // The amount you want to convert
+        String apiKey = "691b8b16ea3f2b197ffc3beba516d080"; // Replace with your API key
 
         try {
-            URL url = new URL("https://api.apilayer.com/exchangerates_data/latest?base=" + baseCurrency + "&symbols=" + targetCurrency);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            // Set the URL with the API endpoint and access key
+            String url = "http://api.exchangeratesapi.io/v1/latest?access_key=" + apiKey;
+
+            // Create a URL object
+            URL apiUrl = new URL(url);
+
+            // Open a connection to the URL
+            HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("Authorization", "Bearer " + apiKey);
 
-            int responseCode = connection.getResponseCode();
-            if (responseCode == 200) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
+            // Get the response
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
 
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-
-                reader.close();
-                connection.disconnect();
-
-                // Parse the JSON response to get the exchange rate
-                String jsonResponse = response.toString();
-                double exchangeRate = Double.parseDouble(jsonResponse.split(":")[1].replaceAll("[^\\d.]", ""));
-                double convertedAmount = amountToConvert * exchangeRate;
-
-                System.out.println(amountToConvert + " " + baseCurrency + " is equivalent to " + convertedAmount + " " + targetCurrency);
-            } else {
-                System.err.println("Failed to retrieve exchange rate. Response code: " + responseCode);
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
             }
+
+            in.close();
+
+            // Print the response
+            System.out.println("Response: " + response.toString());
+
+            // Now you can parse the response as needed.
         } catch (IOException e) {
             e.printStackTrace();
         }
