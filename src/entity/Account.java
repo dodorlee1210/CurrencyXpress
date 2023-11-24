@@ -8,7 +8,7 @@ public class Account {
     private double balance;
     private List<ExchangeHistory> exchangeHistories;
 
-    // Constructor
+    // Account Constructor
     public Account(String accountHolder, double balance) {
         this.accountHolder = accountHolder;
         this.balance = balance;
@@ -32,13 +32,13 @@ public class Account {
         this.balance = balance;
     }
 
-    // Method to add an exchange to the history
+    // Add an exchange to the history
     public void addExchangeHistory(String sourceCurrency, String targetCurrency, double exchangedAmount, double exchangeRate) {
         ExchangeHistory history = new ExchangeHistory(sourceCurrency, targetCurrency, exchangedAmount, exchangeRate);
         exchangeHistories.add(history);
     }
 
-    // Method to get the exchange history
+    // Get the exchange history
     public List<ExchangeHistory> getExchangeHistory() {
         return exchangeHistories;
     }
