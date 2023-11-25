@@ -5,15 +5,15 @@ import interface_adapter.login.LoginState;
 public class ConvertState {
     private String symbolB = "";
     private String symbolBError = null;
-    private String currency = "";
-    private String currencyError = null;
+    private String currencyB = "";
+    private String currencyBError = null;
     private String symbolA = "";
     private String symbolAError = null;
 
     public ConvertState(ConvertState copy) {
         symbolB = copy.symbolB;
         symbolBError = copy.symbolBError;
-        currency = copy.currency;
+        currencyB = copy.currencyB;
         currencyError = copy.currencyError;
         symbolA = copy.symbolA;
         symbolAError = copy.symbolAError;
@@ -30,12 +30,12 @@ public class ConvertState {
         return symbolBError;
     }
 
-    public String getCurrency() {
-        return currency;
+    public String getCurrencyB() {
+        return currencyB;
     }
 
-    public String getCurrencyError() {
-        return currencyError;
+    public String getCurrencyBError() {
+        return currencyBError;
     }
 
     public String getSymbolA() {
@@ -54,12 +54,12 @@ public class ConvertState {
         this.symbolBError = symbolBError;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setCurrencyB(String currencyB) {
+        this.currencyB = currencyB;
     }
 
-    public void setCurrencyError(String currencyError) {
-        this.currencyError = currencyError;
+    public void setCurrencyBError(String currencyBError) {
+        this.currencyBError = currencyBError;
     }
 
     public void setSymbolA(String symbolA) {
