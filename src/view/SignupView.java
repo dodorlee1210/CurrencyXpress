@@ -1,9 +1,5 @@
 package view;
-//implemented
 
-import interface_adapter.clear_users.ClearController;
-import interface_adapter.clear_users.ClearState;
-import interface_adapter.clear_users.ClearViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
