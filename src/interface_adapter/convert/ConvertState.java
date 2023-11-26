@@ -9,14 +9,16 @@ public class ConvertState {
     private String currencyBError = null;
     private String symbolA = "";
     private String symbolAError = null;
+    private String currencyA = "";
 
     public ConvertState(ConvertState copy) {
         symbolB = copy.symbolB;
         symbolBError = copy.symbolBError;
         currencyB = copy.currencyB;
-        currencyError = copy.currencyError;
+        currencyBError = copy.currencyBError;
         symbolA = copy.symbolA;
         symbolAError = copy.symbolAError;
+        currencyA = copy.currencyA;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -45,6 +47,7 @@ public class ConvertState {
     public String getSymbolAError() {
         return symbolAError;
     }
+    public String getCurrencyA() {return currencyA;}
 
     public void setSymbolB(String symbolB) {
         this.symbolB = symbolB;
@@ -69,4 +72,6 @@ public class ConvertState {
     public void setSymbolAError(String symbolAError) {
         this.symbolAError = symbolAError;
     }
+
+    public void setCurrencyA(String currencyA) {this.currencyA = currencyA;}
 }
