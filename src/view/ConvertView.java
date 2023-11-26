@@ -3,8 +3,6 @@ package view;
 import interface_adapter.convert.ConvertController;
 import interface_adapter.convert.ConvertState;
 import interface_adapter.convert.ConvertViewModel;
-import interface_adapter.login.LoginState;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +15,7 @@ import java.beans.PropertyChangeListener;
 public class ConvertView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "convert";
-    prviate final ConvertViewModel convertViewModel;
+    private final ConvertViewModel convertViewModel;
 
     final JTextField symbolBInputField = new JTextField(15);
     private final JLabel symbolBErrorField = new JLabel();
