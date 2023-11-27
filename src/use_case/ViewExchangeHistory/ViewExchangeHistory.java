@@ -8,7 +8,7 @@ import java.util.List;
 public class ViewExchangeHistory {
     private final Account account;
 
-    // Constructor
+    // ViewExchangeHistory Constructor
     public ViewExchangeHistory(Account account) {
         this.account = account;
     }
