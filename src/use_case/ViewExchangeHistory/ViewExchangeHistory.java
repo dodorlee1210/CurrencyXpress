@@ -1,4 +1,4 @@
-package use_case.ViewHistory;
+package use_case.ViewExchangeHistory;
 
 import entity.Account;
 import entity.ExchangeHistory;
@@ -8,7 +8,7 @@ import java.util.List;
 public class ViewExchangeHistory {
     private final Account account;
 
-    // Constructor
+    // ViewExchangeHistory Constructor
     public ViewExchangeHistory(Account account) {
         this.account = account;
     }
@@ -28,7 +28,6 @@ public class ViewExchangeHistory {
             System.out.println("Exchanged Amount: " + history.getExchangedAmount());
             System.out.println("Exchange Rate: " + history.getExchangeRate());
             System.out.println("Exchange Time: " + history.getExchangeTime());
-            System.out.println("----------------------------");
         }
     }
 }
