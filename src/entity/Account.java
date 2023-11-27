@@ -33,8 +33,7 @@ public class Account {
     }
 
     // Add an exchange to the history
-    public void addExchangeHistory(String sourceCurrency, String targetCurrency, double exchangedAmount, double exchangeRate) {
-        ExchangeHistory history = new ExchangeHistory(sourceCurrency, targetCurrency, exchangedAmount, exchangeRate);
+    public void addExchangeHistory(ExchangeHistory history) {
         exchangeHistories.add(history);
     }
 
