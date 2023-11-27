@@ -1,3 +1,4 @@
+package use_case.ViewHistory;
 
 import entity.Account;
 import entity.ExchangeHistory;
