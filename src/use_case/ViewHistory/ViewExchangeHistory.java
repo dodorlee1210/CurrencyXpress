@@ -6,7 +6,7 @@ import entity.ExchangeHistory;
 import java.util.List;
 
 public class ViewExchangeHistory {
-    private Account account;
+    private final Account account;
 
     // Constructor
     public ViewExchangeHistory(Account account) {
