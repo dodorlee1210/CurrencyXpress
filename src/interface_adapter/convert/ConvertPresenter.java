@@ -31,8 +31,13 @@ public class ConvertPresenter implements ConvertOutputBoundary {
     @Override
     public void prepareFailView(String error) {
         ConvertState convertState = convertViewModel.getState();
-        // 3 errors exist => conditional?
-//        convertState.set?Error(error);
+        if (error.contains("(B)")) {
+            convertState.setSymbolBError(error);
+        } else if (error.contains("non-numerical")) {
+            convertState.setCurrencyBError(error);
+        } else {
+            convertState.setSymbolAError(error);
+        }
         convertViewModel.firePropertyChanged();
     }
 }

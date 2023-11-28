@@ -1,14 +1,11 @@
 package use_case.convert;
 
-import entity.Bank;
-import use_case.login.LoginInputBoundary;
-
 public class ConvertInteractor implements ConvertInputBoundary {
 
     final ConvertDataAccessInterface dataAccessObject;
     final ConvertOutputBoundary convertPresenter;
 
-    ConvertInteractor(ConvertDataAccessInterface dataAccessInterface, ConvertOutputBoundary convertOutputBoundary) {
+    public ConvertInteractor(CurrencyConverter dataAccessInterface, ConvertOutputBoundary convertOutputBoundary) {
         this.dataAccessObject = dataAccessInterface;
         this.convertPresenter = convertOutputBoundary;
 
@@ -21,17 +18,18 @@ public class ConvertInteractor implements ConvertInputBoundary {
         String symbolA = convertInputData.getSymbolA();
 
         if (!dataAccessObject.existsByCode(symbolB)) {
-            convertPresenter.prepareFailView(symbolB + ": Currency Code does not exist.");
+            convertPresenter.prepareFailView(symbolB + ": Currency Code does not exist (B).");
+        } else if (!currencyB.matches("\\d+")) { //소수점 되게 regex modify
+            convertPresenter.prepareFailView(currencyB + ": Currency has non-numerical values in it.");
         } else if (!dataAccessObject.existsByCode(symbolA)) {
-            convertPresenter.prepareFailView(symbolA + ": Currency Code does not exist.");
+            convertPresenter.prepareFailView(symbolA + ": Currency Code does not exist (A).");
         } else {
             if (symbolB.equals(symbolA)) {
                 convertPresenter.prepareFailView("Exchange does not happen for same currency codes.");
             } else {
-                // NO entity that stores individual rates, where to pull results from?
-//                 = dataAccessObject.get();
-//                ConvertOutputData convertOutputData = new ConvertOutputData(symbolA, currencyA, false);
-//                convertPresenter.prepareSuccessView(convertOutputData);
+                String[] currency = dataAccessObject.get(symbolA).split(":");
+                ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], currency[1], false);
+                convertPresenter.prepareSuccessView(convertOutputData);
             }
         }
 
