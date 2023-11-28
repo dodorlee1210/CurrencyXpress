@@ -1,11 +1,18 @@
+package use_case.convert;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
-public class CurrencyConverter {
-    public static void main(String[] args) {
+public class CurrencyConverter implements ConvertDataAccessInterface {
+
+    String[] currenciesSplit;
+    String currencies;
+
+    public CurrencyConverter(String[] args) {
         String apiKey = "691b8b16ea3f2b197ffc3beba516d080"; // Replace with your API key
 
         try {
@@ -31,15 +38,33 @@ public class CurrencyConverter {
             in.close();
 
             // Print the response
-            String [] output;
+            String[] output;
             output = response.toString().split(",");
+            this.currenciesSplit = output;
+            this.currencies = response.toString();
 
-            for (String s : output) {
-                System.out.println(s);
-            }
+
+//            for (String s : output) {
+//                System.out.println(s);
+//            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean existsByCode(String identifier) {
+        return currencies.contains(identifier);
+    }
+
+    @Override
+    public String get(String code) {
+        for (String s : currenciesSplit) {
+            if (s.contains(code)) {
+                return s;
+            }
+        }
+        return code;
     }
 }
