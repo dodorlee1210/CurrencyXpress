@@ -24,6 +24,9 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
     private final JLabel currencyBErrorField = new JLabel();
     final JTextField symbolAInputField = new JTextField(15);
     private final JLabel symbolAErrorField = new JLabel();
+    private final JLabel exchangeRateLabel = new JLabel("Exchange Rate: ");
+    private final JLabel remainingMoneyLabel = new JLabel("Remaining Money: ");
+    private final JLabel exchangeFeeLabel = new JLabel("Exchange Fee: ");
 
     final JButton convert;
     final JButton home;
@@ -130,6 +133,9 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
         this.add(currencyBErrorField);
         this.add(symbolAInfo);
         this.add(symbolAErrorField);
+        this.add(exchangeRateLabel);
+        this.add(remainingMoneyLabel);
+        this.add(exchangeFeeLabel);
         this.add(buttons);
     }
 
@@ -143,6 +149,7 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ConvertState state = (ConvertState) evt.getNewValue();
+        updateLabels(state);
         setFields(state);
     }
 
@@ -150,5 +157,12 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
         symbolBInputField.setText(state.getSymbolB());
         currencyBInputField.setText(state.getCurrencyB());
         symbolAInputField.setText(state.getSymbolA());
+    }
+
+    private void updateLabels(ConvertState state) {
+        // When and Where do I update?
+        exchangeRateLabel.setText("Exchange Rate: " + state.getExchangeRate());
+        remainingMoneyLabel.setText("Remaining Money: " + state.getRemainingMoney());
+        exchangeFeeLabel.setText("Exchange Fee: " + state.getExchangeBankFee());
     }
 }
