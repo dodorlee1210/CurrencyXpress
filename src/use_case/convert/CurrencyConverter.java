@@ -66,4 +66,12 @@ public class CurrencyConverter implements ConvertDataAccessInterface {
         }
         return code;
     }
+
+    @Override
+    public String calculateExchange(String givenAmount, String currencyRate, double bankFee) {
+        double amount = Double.parseDouble(givenAmount);
+        double rate = Double.parseDouble(currencyRate);
+        double exchange = amount * rate - (amount * bankFee);
+        return Double.toString(exchange);
+    }
 }
