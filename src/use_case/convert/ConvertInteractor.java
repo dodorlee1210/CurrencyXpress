@@ -1,7 +1,5 @@
 package use_case.convert;
 
-import entity.Bank;
-
 public class ConvertInteractor implements ConvertInputBoundary {
 
     final ConvertDataAccessInterface dataAccessObject;

@@ -8,14 +8,16 @@ public class CommonUser implements User {
 
     private final String name;
     private final String password;
+    private final String userID;
     private final LocalDateTime creationTime;
 
     private Account userAccount;
 
-    CommonUser(String name, String password, LocalDateTime creationTime, Bank bank) {
+    CommonUser(String name, String password, LocalDateTime creationTime, Bank bank, String userID) {
         this.name = name;
         this.password = password;
         this.creationTime = creationTime;
+        this.userID = userID;
         this.userAccount = new Account(name, bank);
     }
 
@@ -27,6 +29,11 @@ public class CommonUser implements User {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUserID() {
+        return userID;
     }
 
     @Override
