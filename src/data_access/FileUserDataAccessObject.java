@@ -4,6 +4,7 @@ import entity.User;
 import entity.UserFactory;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
+import entity.banks.Bank;
 
 import java.io.*;
 import java.time.LocalDateTime;

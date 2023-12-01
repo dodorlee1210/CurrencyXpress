@@ -17,6 +17,7 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     JLabel username;
 
     final JButton logOut;
+    final JButton exchange;
 
     /**
      * A window with a title and a JButton.
@@ -33,9 +34,12 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
 
         JPanel buttons = new JPanel();
         logOut = new JButton(accountViewModel.LOGOUT_BUTTON_LABEL);
+        exchange = new JButton(accountViewModel.EXCHANGE_BUTTON_LABEL);
         buttons.add(logOut);
+        buttons.add(exchange);
 
         logOut.addActionListener(this);
+        exchange.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

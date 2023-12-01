@@ -12,6 +12,7 @@ public class AccountViewModel extends ViewModel {
     private AccountState state = new AccountState();
 
     public static final String LOGOUT_BUTTON_LABEL = "Log out";
+    public static final String EXCHANGE_BUTTON_LABEL = "Exchange";
     private String loggedInUser;
 
     public AccountViewModel() {
