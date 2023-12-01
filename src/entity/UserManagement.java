@@ -1,5 +1,6 @@
 package entity;
 
+import entity.User;
 import java.util.HashMap;
 
 public class UserManagement {
@@ -7,11 +8,12 @@ public class UserManagement {
 
     // Method to add a user to the user management system
     public void addUser(User user) {
-        userCollection.put(user.)
+        userCollection.put(user.getUserID(), user);
     }
 
     // Method to get a user by ID
     public User getUserById(String userId) {
+        return userCollection.get(userId);
     }
 
 }

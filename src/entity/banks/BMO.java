@@ -10,4 +10,5 @@ public class BMO implements Bank {
     public double getExchangeServiceFee() {
         return exchangeServiceFee;
     }
+
 }
