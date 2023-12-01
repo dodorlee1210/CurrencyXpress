@@ -1,6 +1,5 @@
 package app;
 
-import entity.Bank;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.convert.ConvertController;
 import interface_adapter.convert.ConvertPresenter;
