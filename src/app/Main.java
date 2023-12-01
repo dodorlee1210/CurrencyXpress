@@ -4,12 +4,11 @@ import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.account.AccountViewModel;
+import interface_adapter.convert.ConvertViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import view.AccountView;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import use_case.convert.CurrencyConverter;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,11 +41,19 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         AccountViewModel accountViewModel = new AccountViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
+        ConvertViewModel convertViewModel = new ConvertViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
+        CurrencyConverter convertDataAccessObject;
 
         try {
             userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            convertDataAccessObject = new CurrencyConverter();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -59,6 +66,9 @@ public class Main {
 
         AccountView accountView = new AccountView(accountViewModel);
         views.add(accountView, accountView.viewName);
+
+        ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, convertDataAccessObject);
+        views.add(convertView, convertView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

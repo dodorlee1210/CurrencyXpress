@@ -6,9 +6,9 @@ public class ConvertInputData {
     private String symbolA;
 
     public ConvertInputData(String symbolB, String currencyB, String symbolA) {
-        this.symbolB = "to be selected by user";
-        this.currencyB = "to be input by user";
-        this.symbolA = "to be selected by user";
+        this.symbolB = symbolB;
+        this.currencyB = currencyB;
+        this.symbolA = symbolA;
     }
 
     String getSymbolB() {

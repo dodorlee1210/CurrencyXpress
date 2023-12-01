@@ -1,5 +1,9 @@
 package use_case.convert;
-import entity.Bank;
+
 public interface ConvertDataAccessInterface {
     boolean existsByCode(String identifier);
+
+    String get(String code);
+
+    String calculateExchange(String givenAmount, String currencyRate, double bankFee);
 }
