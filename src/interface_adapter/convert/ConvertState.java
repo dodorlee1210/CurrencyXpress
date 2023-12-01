@@ -1,7 +1,4 @@
 package interface_adapter.convert;
-
-import interface_adapter.login.LoginState;
-
 public class ConvertState {
     private String symbolB = "";
     private String symbolBError = null;
@@ -10,6 +7,9 @@ public class ConvertState {
     private String symbolA = "";
     private String symbolAError = null;
     private String currencyA = "";
+    private String exchangeBankFee = "";
+    private String exchangeRate = "";
+    private String remainingMoney = "";
 
     public ConvertState(ConvertState copy) {
         symbolB = copy.symbolB;
@@ -19,6 +19,10 @@ public class ConvertState {
         symbolA = copy.symbolA;
         symbolAError = copy.symbolAError;
         currencyA = copy.currencyA;
+        exchangeBankFee = copy.exchangeBankFee;
+        exchangeRate = copy.exchangeRate;
+        remainingMoney = copy.remainingMoney;
+
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -49,6 +53,18 @@ public class ConvertState {
     }
     public String getCurrencyA() {return currencyA;}
 
+    public String getExchangeBankFee() {
+        return exchangeBankFee;
+    }
+
+    public String getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public String getRemainingMoney() {
+        return remainingMoney;
+    }
+
     public void setSymbolB(String symbolB) {
         this.symbolB = symbolB;
     }
@@ -74,4 +90,16 @@ public class ConvertState {
     }
 
     public void setCurrencyA(String currencyA) {this.currencyA = currencyA;}
+
+    public void setExchangeBankFee(String exchangeBankFee) {
+        this.exchangeBankFee = exchangeBankFee;
+    }
+
+    public void setExchangeRate(String exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
+    public void setRemainingMoney(String remainingMoney) {
+        this.remainingMoney = remainingMoney;
+    }
 }
