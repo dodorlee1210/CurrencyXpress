@@ -13,14 +13,4 @@ public class Scotia implements Bank {
     public double getExchangeServiceFee() {
         return exchangeServiceFee;
     }
-
-    @Override
-    public void addUser(String id, Account newAccount) {
-        accounts.put(id, newAccount);
-    }
-
-    @Override
-    public Account getAccount(String id) {
-        return accounts.get(id);
-    }
 }
