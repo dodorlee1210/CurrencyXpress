@@ -6,7 +6,7 @@ import java.util.List;
 public class Account {
     private String accountHolder;
     private double balance;
-    private List<ExchangeHistory> exchangeHistories;
+    public List<ExchangeHistory> exchangeHistories;
 
     // Account Constructor
     public Account(String accountHolder, double balance) {
