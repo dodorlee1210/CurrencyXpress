@@ -8,7 +8,7 @@ public class ConvertInteractor implements ConvertInputBoundary {
     final ConvertOutputBoundary convertPresenter;
     final Bank bank;
 
-    public ConvertInteractor(CurrencyConverter dataAccessInterface, ConvertOutputBoundary convertOutputBoundary, Bank bank) {
+    public ConvertInteractor(ConvertDataAccessInterface dataAccessInterface, ConvertOutputBoundary convertOutputBoundary, Bank bank) {
         this.dataAccessObject = dataAccessInterface;
         this.convertPresenter = convertOutputBoundary;
         this.bank = bank;

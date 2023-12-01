@@ -11,7 +11,7 @@ public class CurrencyConverter implements ConvertDataAccessInterface {
     String[] currenciesSplit;
     String currencies;
 
-    public CurrencyConverter(String[] args) {
+    public CurrencyConverter() throws IOException {
         String apiKey = "691b8b16ea3f2b197ffc3beba516d080"; // Replace with your API key
 
         try {
