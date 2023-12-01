@@ -1,12 +1,16 @@
 package use_case;
+import use_case.search.SearchDataAccessInterface;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class SearchCurrency {
-    public static void main(String[] args) {
+public class SearchCurrency implements SearchDataAccessInterface {
+    String[] currenciesSplit;
+    String currencies;
+    public SearchCurrency() throws IOException {
         String apiKey = "691b8b16ea3f2b197ffc3beba516d080";
 
 
@@ -15,16 +19,16 @@ public class SearchCurrency {
 
             // Assume that base and symbols are retrieved from the front end
             String date = "2023-01-01"; // Replace with the actual date
-            String baseCurrency = "GBP"; // Replace with the actual base currency
-            String symbols = "USD,CAD,EUR"; // Replace with the actual symbols
+            String baseCurrency = "EUR"; // Replace with the actual base currency
+            String symbols = "USD"; // Replace with the actual symbols
 
             // Build the URL with retrieved parameters
-            String url = apiUrl + date + "/latest?access_key=" + apiKey;
+            String url = apiUrl + date + "?access_key=" + apiKey;
 
             // Append retrieved values for base and symbols if available
-            if (!symbols.isEmpty() && !baseCurrency.isEmpty()) {
-                url += "&base=" + baseCurrency +  "&symbols=" + symbols;
-            }
+//            if (!symbols.isEmpty() && !baseCurrency.isEmpty()) {
+//                url += "&base=" + baseCurrency +  "&symbols=" + symbols;
+//            }
 
             URL exchangeRateUrl = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) exchangeRateUrl.openConnection();
@@ -40,10 +44,12 @@ public class SearchCurrency {
             }
 
             in.close();
-
             // Print the response
-            System.out.println("Exchange Rates for " + date + ":");
-            System.out.println(response.toString());
+            String[] output;
+            output = response.toString().split(",");
+            this.currenciesSplit = output;
+            this.currencies = response.toString();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,8 +57,19 @@ public class SearchCurrency {
     }
 
 
+    @Override
+    public boolean existsByCode(String identifier) {
+        return currencies.contains(identifier);
+    }
 
-
-
+    @Override
+    public String get(String code) {
+        for (String s : currenciesSplit) {
+            if (s.contains(code)) {
+                return s;
+            }
+        }
+        return code;
+    }
 }
 
