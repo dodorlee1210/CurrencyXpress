@@ -19,8 +19,6 @@ public class Main {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
 
-        System.out.println(0.1 + 1.1 == 1.2);
-
         // The main application window.
         JFrame application = new JFrame("Login Example");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

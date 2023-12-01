@@ -11,4 +11,8 @@ public class BMO implements Bank {
         return exchangeServiceFee;
     }
 
+    @Override
+    public String getBankName() {
+        return bankName;
+    }
 }

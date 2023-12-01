@@ -16,10 +16,10 @@ public class Account {
 
     // Account Constructor
     public Account(String accountHolder, Bank bank) {
-        this(accountHolder, 0.0, bank);
+        this(accountHolder, bank, 0.0);
     }
 
-    public Account(String accountHolder, double balance, Bank bank) {
+    public Account(String accountHolder, Bank bank, double balance) {
         this.accountHolder = accountHolder;
         this.balance = balance;
         this.bank = bank;
@@ -70,5 +70,9 @@ public class Account {
     // Get the exchange history
     public List<ExchangeHistory> getExchangeHistory() {
         return exchangeHistories;
+    }
+
+    public String getBankName() {
+        return bank.getBankName();
     }
 }
