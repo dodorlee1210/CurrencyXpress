@@ -9,10 +9,12 @@ public class Account {
     private List<ExchangeHistory> exchangeHistories;
 
     // Account Constructor
-    public Account(String accountHolder, double balance) {
+
+    public Account(String accountHolder, Bank bank, double balance) {
         this.accountHolder = accountHolder;
         this.balance = balance;
         this.exchangeHistories = new ArrayList<>();
+        this(accountHolder, bank, 0.0);
     }
 
     // Getters and setters
@@ -40,5 +42,9 @@ public class Account {
     // Get the exchange history
     public List<ExchangeHistory> getExchangeHistory() {
         return exchangeHistories;
+    }
+
+    public String getBankName() {
+        return bank.getBankName();
     }
 }

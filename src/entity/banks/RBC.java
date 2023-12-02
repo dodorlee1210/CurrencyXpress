@@ -14,4 +14,8 @@ public class RBC implements Bank {
         return exchangeServiceFee;
     }
 
+    @Override
+    public String getBankName() {
+        return bankName;
+    }
 }

@@ -5,5 +5,5 @@ import entity.banks.Bank;
 import java.time.LocalDateTime;
 
 public interface UserFactory {
-    User create(String name, String password, LocalDateTime ltd, Bank bank, String userID);
+    User create(String username, String password, Bank bank, double initialBalance, String accountHolder);
 }
