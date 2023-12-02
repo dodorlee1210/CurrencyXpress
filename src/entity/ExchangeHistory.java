@@ -38,4 +38,10 @@ public class ExchangeHistory {
     public LocalDateTime getExchangeTime() {
         return exchangeTime;
     }
+    // Exchange
+    public String toString() {
+        return String.format("Source Currency: %s, Target Currency: %s, Exchanged Amount: %.2f, Exchange Rate: %.4f, Exchange Time: %s",
+                sourceCurrency, targetCurrency, exchangedAmount, exchangeRate, exchangeTime);
+    }
 }
+
