@@ -1,6 +1,5 @@
 package entity;
 
-import java.time.LocalDateTime;
 import entity.banks.Bank;
 
 public class CommonUserFactory implements UserFactory {
