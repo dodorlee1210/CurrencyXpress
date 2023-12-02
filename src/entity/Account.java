@@ -1,20 +1,27 @@
 package entity;
 
+import entity.banks.Bank;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
     private String accountHolder;
     private double balance;
+    private Bank bank;
     private List<ExchangeHistory> exchangeHistories;
 
     // Account Constructor
 
+    public Account() {
+        this("", null, 0.0);
+    }
+
     public Account(String accountHolder, Bank bank, double balance) {
         this.accountHolder = accountHolder;
+        this.bank = bank;
         this.balance = balance;
         this.exchangeHistories = new ArrayList<>();
-        this(accountHolder, bank, 0.0);
     }
 
     // Getters and setters
