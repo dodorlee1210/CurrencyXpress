@@ -1,5 +1,6 @@
 package app;
 
+import entity.banks.Bank;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.convert.ConvertController;
 import interface_adapter.convert.ConvertPresenter;
@@ -33,7 +34,8 @@ public class ConvertUseCaseFactory {
                                                           ConvertViewModel convertViewModel,
                                                           ConvertDataAccessInterface convertDataAccessInterface) throws IOException {
         ConvertOutputBoundary convertOutputBoundary = new ConvertPresenter(viewManagerModel, convertViewModel);
-        ConvertInputBoundary convertInteractor = new ConvertInteractor(convertDataAccessInterface, convertOutputBoundary, new Bank());
+
+        ConvertInputBoundary convertInteractor = new ConvertInteractor(convertDataAccessInterface, convertOutputBoundary, );
         return new ConvertController(convertInteractor);
     }
 }

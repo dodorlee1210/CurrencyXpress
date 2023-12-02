@@ -1,4 +1,5 @@
 package use_case.convert;
+import entity.banks.Bank;
 
 public class ConvertInteractor implements ConvertInputBoundary {
 
@@ -29,7 +30,7 @@ public class ConvertInteractor implements ConvertInputBoundary {
                 convertPresenter.prepareFailView("Exchange does not happen for same currency codes.");
             } else {
                 String[] currency = dataAccessObject.get(symbolA).split(":");
-                String exchangedAmount = dataAccessObject.calculateExchange(currencyB, currency[1], bank.getExchangeFeeRate());
+                String exchangedAmount = dataAccessObject.calculateExchange(currencyB, currency[1], bank.getExchangeServiceFee());
                 ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], exchangedAmount, false);
                 convertPresenter.prepareSuccessView(convertOutputData);
             }
