@@ -34,7 +34,6 @@ public class ViewExchangeHistoryInteractor implements ViewExchangeHistoryInputBo
             // If the exchange history is empty, prepare a fail view with an error message
             if (histories.isEmpty()) {
                 viewExchangeHistoryPresenter.prepareFailView("No exchange history found.");
-                return;
             }
             // If the exchange history is not empty, prepare a success view with the exchange history data
             viewExchangeHistoryPresenter.prepareSuccessView(new ViewExchangeHistoryOutputData(Account.getExchangeHistory()));
