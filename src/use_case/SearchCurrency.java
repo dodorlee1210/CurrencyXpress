@@ -25,11 +25,6 @@ public class SearchCurrency implements SearchDataAccessInterface {
             // Build the URL with retrieved parameters
             String url = apiUrl + date + "?access_key=" + apiKey;
 
-            // Append retrieved values for base and symbols if available
-//            if (!symbols.isEmpty() && !baseCurrency.isEmpty()) {
-//                url += "&base=" + baseCurrency +  "&symbols=" + symbols;
-//            }
-
             URL exchangeRateUrl = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) exchangeRateUrl.openConnection();
             connection.setRequestMethod("GET");
