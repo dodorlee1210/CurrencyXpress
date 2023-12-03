@@ -4,6 +4,7 @@ import entity.Account;
 import entity.User;
 import entity.UserFactory;
 import entity.banks.*;
+import entity.UserManagement;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import entity.banks.Bank;
@@ -30,7 +31,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         csvFile = new File(csvPath);
         headers.put("username", 0);
         headers.put("password", 1);
-        headers.put("Bank Type", 2);
+        headers.put("Bank Name", 2);
         headers.put("Initial Balance", 3);
         headers.put("Account Holder", 4);
 
@@ -42,7 +43,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 String header = reader.readLine();
 
                 // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("username,password,Bank Type,Initial Balance,Account Holder");
+                assert header.equals("username,password,Bank Name,Initial Balance,Account Holder");
 
                 String row;
 
@@ -50,7 +51,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
-                    String bankType = String.valueOf(col[headers.get("Bank Type")]);
+                    String bankName = String.valueOf(col[headers.get("Bank Name")]);
                     String accountHolder = String.valueOf(col[headers.get("Account Holder")]);
                     double initialBalance;
 
@@ -63,26 +64,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                         initialBalance = 0.0;
                     }
 
-                    User user = userFactory.create(username, password, getBank(bankType), initialBalance, accountHolder);
+                    User user = userFactory.create(username, password, bankName, initialBalance, accountHolder);
                     accounts.put(username, user);
                 }
             }
         }
-    }
-
-    /**
-     * Return the bank object that is specified by the parameter: bankType
-     * @param bankType The object type to return
-     * @return Specified bank object
-     */
-    private Bank getBank(String bankType) {
-        return switch (bankType) {
-            case "BMO" -> new BMO();
-            case "CIBC" -> new CIBC();
-            case "RBC" -> new RBC();
-            case "Scotia" -> new Scotia();
-            default -> new TD();
-        };
     }
 
     @Override

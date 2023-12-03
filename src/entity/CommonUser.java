@@ -8,10 +8,10 @@ public class CommonUser implements User {
     private final String password;
     private Account userAccount;
 
-    CommonUser(String username, String password, Bank bank, double initialBalance, String accountHolder) {
+    CommonUser(String username, String password, String bankName, double initialBalance, String accountHolder) {
         this.username = username;
         this.password = password;
-        this.userAccount = new Account(accountHolder, bank, initialBalance);
+        this.userAccount = new Account(accountHolder, bankName, initialBalance);
     }
 
     @Override

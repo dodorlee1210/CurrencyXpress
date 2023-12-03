@@ -7,17 +7,17 @@ public class SignupInputData {
     final private String username;
     final private String password;
     final private String repeatPassword;
-    private Bank bank;
+    private String bankName;
     private double initialBalance;
     private String accountHolder;
 
     public SignupInputData(String username, String password, String repeatPassword,
-                           Bank bank, double initialBalance, String accountHolder) {
+                           String bankName, double initialBalance, String accountHolder) {
         this.username = username;
         this.password = password;
         this.repeatPassword = repeatPassword;
         this.accountHolder = accountHolder;
-        this.bank = bank;
+        this.bankName = bankName;
         this.initialBalance = initialBalance;
     }
 
@@ -33,8 +33,8 @@ public class SignupInputData {
         return repeatPassword;
     }
 
-    public Bank getBank() {
-        return bank;
+    public String getBankName() {
+        return bankName;
     }
 
     public double getInitialBalance() {

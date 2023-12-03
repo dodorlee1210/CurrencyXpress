@@ -1,7 +1,6 @@
 package entity;
 
-import entity.banks.Bank;
-
+import entity.banks.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +11,14 @@ public class Account {
     private List<ExchangeHistory> exchangeHistories;
 
     // Account Constructor
-
-    public Account() {
-        this("", null, 0.0);
+    public Account(String accountHolder, String bankName) {
+        this(accountHolder, bankName, 0.0);
     }
 
-    public Account(String accountHolder, Bank bank, double balance) {
+    public Account(String accountHolder, String bankName, double balance) {
         this.accountHolder = accountHolder;
-        this.bank = bank;
         this.balance = balance;
+        this.bank = getBank(bankName);
         this.exchangeHistories = new ArrayList<>();
     }
 
@@ -51,7 +49,26 @@ public class Account {
         return exchangeHistories;
     }
 
+    /**
+     * Return the bank object corresponding to the bank name
+     * @param bankName The object type to return
+     * @return Bank object corresponding to the bank name
+     */
+    private Bank getBank(String bankName) {
+        return switch (bankName) {
+            case "BMO" -> new BMO();
+            case "CIBC" -> new CIBC();
+            case "RBC" -> new RBC();
+            case "Scotia" -> new Scotia();
+            default -> new TD();
+        };
+    }
+
     public String getBankName() {
         return bank.getBankName();
+    }
+
+    public double getExchangeServiceFee() {
+        return bank.getExchangeServiceFee();
     }
 }

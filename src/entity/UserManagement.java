@@ -12,7 +12,7 @@ public class UserManagement {
     }
 
     // Method to get a user by ID
-    public User getUserById(String username) {
+    public User getUserByUsername(String username) {
         return userCollection.get(username);
     }
 

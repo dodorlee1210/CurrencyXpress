@@ -12,9 +12,9 @@ public class SignupController {
     }
 
     public void execute(String username, String password1, String password2,
-                        Bank bank, double initialBalance, String accountHolder) {
+                        String bankName, double initialBalance, String accountHolder) {
         SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2, bank, initialBalance, accountHolder);
+                username, password1, password2, bankName, initialBalance, accountHolder);
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }

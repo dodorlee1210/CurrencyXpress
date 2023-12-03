@@ -2,6 +2,7 @@ package app;
 
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
+import entity.UserManagement;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.account.AccountViewModel;
 import interface_adapter.convert.ConvertViewModel;
@@ -43,6 +44,7 @@ public class Main {
 
         FileUserDataAccessObject userDataAccessObject;
         CurrencyConverter convertDataAccessObject;
+        UserManagement users = new UserManagement();
 
         try {
             userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
@@ -65,7 +67,7 @@ public class Main {
         AccountView accountView = new AccountView(accountViewModel);
         views.add(accountView, accountView.viewName);
 
-        ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, convertDataAccessObject);
+        ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, convertDataAccessObject, users);
         views.add(convertView, convertView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
