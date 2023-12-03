@@ -1,5 +1,6 @@
 package view;
 
+import entity.banks.*;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
@@ -21,7 +22,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
-
+    private final JTextField accountHolderInputField = new JTextField(15);
+    private final String[] banks = new String[]{"BMO","CIBC", "RBC", "Scotia", "TD"};
+    private final JComboBox bankDropDown = new JComboBox(banks);
+    private final JTextField initialBalanceInputField = new JTextField(15);
     private final SignupController signupController;
 
     private final JButton signUp;
@@ -46,6 +50,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
+        LabelTextPanel accountHolderInfo = new LabelTextPanel(
+                new JLabel(SignupViewModel.ACCOUNTHOLDER_LABEL), accountHolderInputField);
+        LabelTextPanel initialBalanceInfo = new LabelTextPanel(
+                new JLabel(SignupViewModel.INITIAL_BALANCE_LABEL), initialBalanceInputField);
 
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
@@ -69,7 +77,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                             signupController.execute(
                                     currentState.getUsername(),
                                     currentState.getPassword(),
-                                    currentState.getRepeatPassword()
+                                    currentState.getRepeatPassword(),
+                                    currentState.getBank(),
+                                    Double.parseDouble(currentState.getInitialBalance()),
+                                    currentState.getAccountHolder()
                             );
                         }
                     }
@@ -143,12 +154,58 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
+        accountHolderInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+                        currentState.setAccountHolder(accountHolderInputField.getText() + e.getKeyChar());
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
+                    }
+                }
+        );
+
+        bankDropDown.addActionListener(this);
+
+        initialBalanceInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+                        currentState.setInitialBalance(initialBalanceInputField.getText() + e.getKeyChar());
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
+                    }
+                }
+        );
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
+        this.add(accountHolderInfo);
+        this.add(bankDropDown);
+        this.add(initialBalanceInfo);
         this.add(buttons);
     }
 
@@ -156,7 +213,18 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+        JComboBox cb = (JComboBox) evt.getSource();
+        String chosenBank = (String) cb.getSelectedItem();
+        SignupState currentState = signupViewModel.getState();
+        assert chosenBank != null;
+        Bank bank = switch (chosenBank) {
+            case "BMO" -> new BMO();
+            case "CIBC" -> new CIBC();
+            case "RBC" -> new RBC();
+            case "Scotia" -> new Scotia();
+            default -> new TD();
+        };
+        currentState.setBank(bank);
     }
 
     @Override

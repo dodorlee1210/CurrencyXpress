@@ -9,8 +9,8 @@ public class ConvertController {
         this.convertUseCaseInteractor = convertUseCaseInteractor;
     }
 
-    public void execute(String symbolB, String currencyB, String symbolA) {
-        ConvertInputData convertInputData = new ConvertInputData(symbolB, currencyB, symbolA);
+    public void execute(String symbolB, String currencyB, String symbolA, String username) {
+        ConvertInputData convertInputData = new ConvertInputData(symbolB, currencyB, symbolA, username);
 
         convertUseCaseInteractor.execute(convertInputData);
     }
