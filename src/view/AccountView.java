@@ -1,7 +1,9 @@
 package view;
 
+import interface_adapter.account.AccountController;
 import interface_adapter.account.AccountState;
 import interface_adapter.account.AccountViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +24,7 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     /**
      * A window with a title and a JButton.
      */
-    public AccountView(AccountViewModel accountViewModel) {
+    public AccountView(AccountViewModel accountViewModel, AccountController accountController) {
         this.accountViewModel = accountViewModel;
         this.accountViewModel.addPropertyChangeListener(this);
 
@@ -37,6 +39,17 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
         exchange = new JButton(accountViewModel.EXCHANGE_BUTTON_LABEL);
         buttons.add(logOut);
         buttons.add(exchange);
+
+        exchange.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(exchange)) {
+                            accountController.execute();
+                        }
+                    }
+                }
+        );
 
         logOut.addActionListener(this);
         exchange.addActionListener(this);

@@ -62,11 +62,11 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, accountViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        AccountView accountView = new AccountView(accountViewModel);
+        AccountView accountView = AccountFactory.create(viewManagerModel, accountViewModel, convertViewModel);
         views.add(accountView, accountView.viewName);
 
-//        ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, convertDataAccessObject, userDataAccessObject);
-//        views.add(convertView, convertView.viewName);
+        ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, convertDataAccessObject, userDataAccessObject);
+        views.add(convertView, convertView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
