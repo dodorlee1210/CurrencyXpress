@@ -13,9 +13,9 @@ public class Account {
 
     // Account Constructor
 
-    public Account() {
-        this("", null, 0.0);
-    }
+//    public Account() {
+//        this("", null, 0.0);
+//    }
 
     public Account(String accountHolder, Bank bank, double balance) {
         this.accountHolder = accountHolder;

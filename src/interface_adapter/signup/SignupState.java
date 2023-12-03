@@ -1,5 +1,7 @@
 package interface_adapter.signup;
 
+import entity.banks.Bank;
+
 public class SignupState {
     private String username = "";
     private String usernameError = null;
@@ -7,6 +9,11 @@ public class SignupState {
     private String passwordError = null;
     private String repeatPassword = "";
     private String repeatPasswordError = null;
+    private String accountHolder = "";
+    private Bank bank;
+    private String initialBalance = "";
+
+
 
     public SignupState(SignupState copy) {
         username = copy.username;
@@ -15,6 +22,10 @@ public class SignupState {
         passwordError = copy.passwordError;
         repeatPassword = copy.repeatPassword;
         repeatPasswordError = copy.repeatPasswordError;
+        accountHolder = copy.accountHolder;
+        bank = copy.bank;
+        initialBalance = copy.initialBalance;
+
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -45,6 +56,18 @@ public class SignupState {
         return repeatPasswordError;
     }
 
+    public String getAccountHolder() {
+        return accountHolder;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public String getInitialBalance() {
+        return initialBalance;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -69,12 +92,27 @@ public class SignupState {
         this.repeatPasswordError = repeatPasswordError;
     }
 
+    public void setAccountHolder(String accountHolder) {
+        this.accountHolder = accountHolder;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
+    public void setInitialBalance(String initialBalance) {
+        this.initialBalance = initialBalance;
+    }
+
     @Override
     public String toString() {
         return "SignupState{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", repeatPassword='" + repeatPassword + '\'' +
+                ", accountHolder='" + accountHolder + '\'' +
+                ", bank= '" + bank + '\'' +
+                ", initialBalance= '" + initialBalance + '\'' +
                 '}';
     }
 }
