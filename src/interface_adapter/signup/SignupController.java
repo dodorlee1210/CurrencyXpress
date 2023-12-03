@@ -1,5 +1,6 @@
 package interface_adapter.signup;
 
+import entity.banks.Bank;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInputData;
 
@@ -10,9 +11,10 @@ public class SignupController {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
     }
 
-    public void execute(String username, String password1, String password2) {
+    public void execute(String username, String password1, String password2,
+                        Bank bank, double initialBalance, String accountHolder) {
         SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2);
+                username, password1, password2, bank, initialBalance, accountHolder);
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }

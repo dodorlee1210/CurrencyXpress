@@ -8,12 +8,12 @@ public class UserManagement {
 
     // Method to add a user to the user management system
     public void addUser(User user) {
-        userCollection.put(user.getUserID(), user);
+        userCollection.put(user.getUsername(), user);
     }
 
     // Method to get a user by ID
-    public User getUserById(String userId) {
-        return userCollection.get(userId);
+    public User getUserById(String username) {
+        return userCollection.get(username);
     }
 
 }
