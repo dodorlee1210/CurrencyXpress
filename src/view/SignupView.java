@@ -87,6 +87,28 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
+        bankDropDown.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(bankDropDown)) {
+                            JComboBox cb = (JComboBox) evt.getSource();
+                            String chosenBank = (String) cb.getSelectedItem();
+                            SignupState currentState = signupViewModel.getState();
+                            assert chosenBank != null;
+                            Bank bank = switch (chosenBank) {
+                                case "BMO" -> new BMO();
+                                case "CIBC" -> new CIBC();
+                                case "RBC" -> new RBC();
+                                case "Scotia" -> new Scotia();
+                                default -> new TD();
+                            };
+                            currentState.setBank(bank);
+                        }
+                    }
+                }
+        );
+
         cancel.addActionListener(this);
 
         // This makes a new KeyListener implementing class, instantiates it, and
@@ -213,18 +235,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        JComboBox cb = (JComboBox) evt.getSource();
-        String chosenBank = (String) cb.getSelectedItem();
-        SignupState currentState = signupViewModel.getState();
-        assert chosenBank != null;
-        Bank bank = switch (chosenBank) {
-            case "BMO" -> new BMO();
-            case "CIBC" -> new CIBC();
-            case "RBC" -> new RBC();
-            case "Scotia" -> new Scotia();
-            default -> new TD();
-        };
-        currentState.setBank(bank);
     }
 
     @Override
