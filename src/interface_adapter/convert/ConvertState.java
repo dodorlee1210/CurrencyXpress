@@ -1,5 +1,6 @@
 package interface_adapter.convert;
 public class ConvertState {
+    // B = before, A = after
     private String symbolB = "";
     private String symbolBError = null;
     private String currencyB = "";
