@@ -65,7 +65,8 @@ public class Main {
         AccountView accountView = AccountUseCaseFactory.create(viewManagerModel, accountViewModel, convertViewModel);
         views.add(accountView, accountView.viewName);
 
-        ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, convertDataAccessObject, userDataAccessObject);
+        ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel,
+                convertDataAccessObject, userDataAccessObject);
         views.add(convertView, convertView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
