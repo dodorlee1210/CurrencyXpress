@@ -68,6 +68,9 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
                                     currentState.getSymbolA(),
                                     currentState.getUsername()
                             );
+
+                            // 여기서 팝업 생성 - 결과 출력
+                            displayPopUpWindow();
                         }
                     }
                 }
@@ -170,4 +173,9 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
 //        if (!currentState.getSymbolB().isEmpty() && !currentState.getSymbolA().isEmpty()) {
 //        updateLabels(currentState);
 //    }
+
+
+    public void displayPopUpWindow() {
+        JOptionPane.showMessageDialog(this, "팝업 예시!", "Message",JOptionPane.ERROR_MESSAGE );
+    }
 }
