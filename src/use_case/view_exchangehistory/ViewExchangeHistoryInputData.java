@@ -1,4 +1,4 @@
-package use_case.ViewExchangeHistory;
+package use_case.view_exchangehistory;
 
 public class ViewExchangeHistoryInputData {
     final private String accountHolder;

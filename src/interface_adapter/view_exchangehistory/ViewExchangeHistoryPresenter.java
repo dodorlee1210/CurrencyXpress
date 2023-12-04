@@ -1,10 +1,8 @@
-package interface_adapter.ViewExchangeHistory;
+package interface_adapter.view_exchangehistory;
 
-import interface_adapter.ViewExchangeHistory.ViewExchangeHistoryViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewExchangeHistory.ViewExchangeHistoryState;
-import use_case.ViewExchangeHistory.ViewExchangeHistoryOutputBoundary;
-import use_case.ViewExchangeHistory.ViewExchangeHistoryOutputData;
+import use_case.view_exchangehistory.ViewExchangeHistoryOutputBoundary;
+import use_case.view_exchangehistory.ViewExchangeHistoryOutputData;
 
 public class ViewExchangeHistoryPresenter implements ViewExchangeHistoryOutputBoundary {
 

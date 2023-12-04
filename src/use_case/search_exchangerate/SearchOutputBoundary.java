@@ -1,6 +1,4 @@
-package use_case.search;
-
-import use_case.convert.ConvertOutputData;
+package use_case.search_exchangerate;
 
 public interface SearchOutputBoundary {
     void prepareSuccessView(SearchOutputData exchange);

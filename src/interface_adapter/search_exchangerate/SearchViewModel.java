@@ -1,6 +1,5 @@
-package interface_adapter.search;
+package interface_adapter.search_exchangerate;
 import interface_adapter.ViewModel;
-import interface_adapter.convert.ConvertState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

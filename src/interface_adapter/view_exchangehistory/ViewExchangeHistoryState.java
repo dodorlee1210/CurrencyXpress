@@ -1,4 +1,4 @@
-package interface_adapter.ViewExchangeHistory;
+package interface_adapter.view_exchangehistory;
 
 import entity.ExchangeHistory;
 import java.util.List;
