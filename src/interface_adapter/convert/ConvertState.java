@@ -11,6 +11,7 @@ public class ConvertState {
     private String exchangeBankFee = "";
     private String exchangeRate = "";
     private String remainingMoney = "";
+    private String username = "";
     public ConvertState(ConvertState copy) {
         symbolB = copy.symbolB;
         symbolBError = copy.symbolBError;
@@ -22,6 +23,7 @@ public class ConvertState {
         exchangeBankFee = copy.exchangeBankFee;
         exchangeRate = copy.exchangeRate;
         remainingMoney = copy.remainingMoney;
+        username = copy.username;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -65,6 +67,9 @@ public class ConvertState {
         return remainingMoney;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
     // Setters
     public void setSymbolB(String symbolB) {
@@ -105,4 +110,7 @@ public class ConvertState {
         this.remainingMoney = remainingMoney;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

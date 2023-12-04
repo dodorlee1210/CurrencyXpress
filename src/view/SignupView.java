@@ -23,7 +23,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final JTextField accountHolderInputField = new JTextField(15);
-    private final String[] banks = new String[]{"BMO","CIBC", "RBC", "Scotia", "TD"};
+    private final String[] banks = new String[]{"Please select a bank", "BMO","CIBC", "RBC", "Scotia", "TD"};
     private final JComboBox bankDropDown = new JComboBox(banks);
     private final JTextField initialBalanceInputField = new JTextField(15);
     private final SignupController signupController;

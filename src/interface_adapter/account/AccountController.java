@@ -1,15 +1,16 @@
 package interface_adapter.account;
 
-import use_case.account.AccountInteractor;
+import use_case.account.AccountInputBoundary;
+import use_case.account.AccountInputData;
 
 public class AccountController {
-    final AccountInteractor accountInteractor;
-    public AccountController(AccountInteractor accountInteractor) {
+    final AccountInputBoundary accountInteractor;
+    public AccountController(AccountInputBoundary accountInteractor) {
         this.accountInteractor = accountInteractor;
     }
 
-
-    public void execute() {
-        accountInteractor.execute();
+    public void execute(String username) {
+        AccountInputData accountInputData = new AccountInputData(username);
+        accountInteractor.execute(accountInputData);
     }
 }
