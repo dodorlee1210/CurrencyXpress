@@ -1,4 +1,4 @@
-package interface_adapter.search;
+package interface_adapter.search_exchangerate;
 
 public class SearchState{
 

@@ -1,7 +1,7 @@
-package interface_adapter.ViewExchangeHistory;
+package interface_adapter.view_exchangehistory;
 
-import use_case.ViewExchangeHistory.ViewExchangeHistoryInputBoundary;
-import use_case.ViewExchangeHistory.ViewExchangeHistoryInputData;
+import use_case.view_exchangehistory.ViewExchangeHistoryInputBoundary;
+import use_case.view_exchangehistory.ViewExchangeHistoryInputData;
 
 public class ViewExchangeHistoryController {
 

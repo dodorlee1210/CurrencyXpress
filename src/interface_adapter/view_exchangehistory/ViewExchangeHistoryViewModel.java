@@ -1,4 +1,4 @@
-package interface_adapter.ViewExchangeHistory;
+package interface_adapter.view_exchangehistory;
 
 import interface_adapter.ViewModel;
 

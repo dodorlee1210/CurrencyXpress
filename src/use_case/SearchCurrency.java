@@ -1,5 +1,5 @@
 package use_case;
-import use_case.search.SearchDataAccessInterface;
+import use_case.search_exchangerate.SearchDataAccessInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;

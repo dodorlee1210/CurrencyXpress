@@ -10,6 +10,7 @@ public class ConvertInteractor implements ConvertInputBoundary {
     final ConvertDataAccessInterface convertDataAccessInterface;
     final ConvertOutputBoundary convertPresenter;
     FileUserDataAccessObject dataAccessObject;
+    String exchangeResult;
 
     public ConvertInteractor(ConvertDataAccessInterface convertDataAccessInterface,
                              ConvertOutputBoundary convertOutputBoundary, FileUserDataAccessObject dataAccessObject) {
@@ -19,20 +20,24 @@ public class ConvertInteractor implements ConvertInputBoundary {
     }
 
     @Override
-    public void execute(ConvertInputData convertInputData) {
+    public String execute(ConvertInputData convertInputData) {
         String symbolB = convertInputData.getSymbolB();
         String currencyB = convertInputData.getCurrencyB();
         String symbolA = convertInputData.getSymbolA();
 
         if (!convertDataAccessInterface.existsByCode(symbolB)) {
             convertPresenter.prepareFailView(symbolB + ": Currency Code does not exist (B).");
+            exchangeResult = "Error: " + "Currency Code does not exist (B).";
         } else if (!currencyB.matches("\\d+(\\.\\d+)?")) {
             convertPresenter.prepareFailView(currencyB + ": Currency has non-numerical values in it.");
+            exchangeResult = "Error: " + "Currency has non-numerical values in it.";
         } else if (!convertDataAccessInterface.existsByCode(symbolA)) {
             convertPresenter.prepareFailView(symbolA + ": Currency Code does not exist (A).");
+            exchangeResult = "Error: " + "Currency Code does not exist (A).";
         } else {
             if (symbolB.equals(symbolA)) {
                 convertPresenter.prepareFailView("Exchange does not happen for same currency codes.");
+                exchangeResult = "Error: " + "Exchange does not happen for same currency codes.";
             } else {
                 String[] currency = convertDataAccessInterface.get(symbolA).split(":");
                 User user = dataAccessObject.get(convertInputData.getUsername());
@@ -45,8 +50,13 @@ public class ConvertInteractor implements ConvertInputBoundary {
                 ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], exchangedAmount,
                         leftover,false);
                 convertPresenter.prepareSuccessView(convertOutputData);
+
+                exchangeResult = convertOutputData.getSymbolA() + "\n" +
+                         convertOutputData.getCurrencyA() + "\n" +
+                        "Balance: " + convertOutputData.getLeftAmount();
             }
         }
 
+        return exchangeResult;
     }
 }

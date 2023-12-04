@@ -17,7 +17,7 @@ public class ConvertPresenter implements ConvertOutputBoundary {
     @Override
     public void prepareSuccessView(ConvertOutputData response) {
         // On success, switch to the result popup view.
-//        System.out.println(response.getCurrencyA() + response.getSymbolA() + String.valueOf(response.getLeftAmount()));
+        //System.out.println(response.getCurrencyA() + response.getSymbolA() + response.getLeftAmount());
         ConvertState convertState = convertViewModel.getState();
         convertState.setCurrencyA(response.getCurrencyA());
         convertState.setSymbolA(response.getSymbolA());

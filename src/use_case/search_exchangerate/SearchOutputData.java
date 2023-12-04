@@ -1,4 +1,4 @@
-package use_case.search;
+package use_case.search_exchangerate;
 
 public class SearchOutputData {
 
