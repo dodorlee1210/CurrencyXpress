@@ -4,20 +4,15 @@ public class ConvertInputData {
     private String symbolB;
     private String currencyB;
     private String symbolA;
-//    private String username;
+    private String username;
 
-//    public ConvertInputData(String symbolB, String currencyB, String symbolA, String username) {
-//        this.symbolB = symbolB;
-//        this.currencyB = currencyB;
-//        this.symbolA = symbolA;
-//        this.username = username;
-//    }
-
-    public ConvertInputData(String symbolB, String currencyB, String symbolA) {
+    public ConvertInputData(String symbolB, String currencyB, String symbolA, String username) {
         this.symbolB = symbolB;
         this.currencyB = currencyB;
         this.symbolA = symbolA;
+        this.username = username;
     }
+
     String getSymbolB() {
         return symbolB;
     }
@@ -30,7 +25,7 @@ public class ConvertInputData {
         return symbolA;
     }
 
-//    public String getUsername() {
-//        return username;
-//    }
+    public String getUsername() {
+        return username;
+    }
 }

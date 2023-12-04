@@ -1,6 +1,8 @@
 package use_case.convert;
 
 import data_access.FileUserDataAccessObject;
+import entity.Account;
+import entity.User;
 import entity.banks.Bank;
 
 public class ConvertInteractor implements ConvertInputBoundary {
@@ -33,10 +35,15 @@ public class ConvertInteractor implements ConvertInputBoundary {
                 convertPresenter.prepareFailView("Exchange does not happen for same currency codes.");
             } else {
                 String[] currency = convertDataAccessInterface.get(symbolA).split(":");
-//                User user = dataAccessObject.get(convertInputData);
-//                Bank bank = user.
-//                String exchangedAmount = convertDataAccessInterface.calculateExchange(currencyB, currency[1], user.bank());
-                ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], currency[1], false);
+                User user = dataAccessObject.get(convertInputData.getUsername());
+                Account account = user.getUserAccount();
+                double serviceFees = account.getBank().getExchangeServiceFee();
+                String exchangedAmount = convertDataAccessInterface.calculateExchange(currencyB, currency[1], serviceFees);
+                double leftover = account.getBalance() - Double.parseDouble(currencyB);
+                account.setBalance(leftover);
+                // Can't save exchanged amount in account
+                ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], exchangedAmount,
+                        leftover,false);
                 convertPresenter.prepareSuccessView(convertOutputData);
             }
         }

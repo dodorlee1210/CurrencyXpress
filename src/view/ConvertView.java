@@ -3,6 +3,8 @@ package view;
 import interface_adapter.convert.ConvertController;
 import interface_adapter.convert.ConvertState;
 import interface_adapter.convert.ConvertViewModel;
+import use_case.convert.CurrencyConverter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -63,7 +65,8 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
                             convertController.execute(
                                     currentState.getSymbolB(),
                                     currentState.getCurrencyB(),
-                                    currentState.getSymbolA()
+                                    currentState.getSymbolA(),
+                                    currentState.getUsername()
                             );
 
                             // 여기서 팝업 생성 - 결과 출력
@@ -79,7 +82,7 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
             @Override
             public void keyTyped(KeyEvent e) {
                 ConvertState currentState = convertViewModel.getState();
-                currentState.setSymbolB(symbolBInputField.getText() + e.getKeyChar());
+                currentState.setSymbolB(symbolBInputField.getText() + Character.toUpperCase(e.getKeyChar()));
                 convertViewModel.setState(currentState);
             }
 
@@ -114,7 +117,7 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
             @Override
             public void keyTyped(KeyEvent e) {
                 ConvertState currentState = convertViewModel.getState();
-                currentState.setSymbolA(symbolAInputField.getText() + e.getKeyChar());
+                currentState.setSymbolA(symbolAInputField.getText() + Character.toUpperCase(e.getKeyChar()));
                 convertViewModel.setState(currentState);
             }
 
@@ -151,7 +154,7 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ConvertState state = (ConvertState) evt.getNewValue();
-        updateLabels(state);
+//        updateLabels(state);
         setFields(state);
     }
 
@@ -161,12 +164,16 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
         symbolAInputField.setText(state.getSymbolA());
     }
 
-    private void updateLabels(ConvertState state) {
-        // When and Where do I update?
-        exchangeRateLabel.setText("Exchange Rate: " + state.getExchangeRate());
-        remainingMoneyLabel.setText("Remaining Money: " + state.getRemainingMoney());
-        exchangeFeeLabel.setText("Exchange Fee: " + state.getExchangeBankFee());
-    }
+//    private void updateLabels(ConvertState state) {
+//        exchangeRateLabel.setText("Exchange Rate: " + state.getExchangeRate());
+//        remainingMoneyLabel.setText("Remaining Money: " + state.getRemainingMoney());
+//        exchangeFeeLabel.setText("Exchange Fee: " + state.getExchangeBankFee());
+//    }
+//        ConvertState currentState = convertViewModel.getState();
+//        if (!currentState.getSymbolB().isEmpty() && !currentState.getSymbolA().isEmpty()) {
+//        updateLabels(currentState);
+//    }
+
 
     public void displayPopUpWindow() {
         JOptionPane.showMessageDialog(this, "팝업 예시!", "Message",JOptionPane.ERROR_MESSAGE );

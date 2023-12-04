@@ -11,12 +11,6 @@ public class Account {
     private Bank bank;
     private List<ExchangeHistory> exchangeHistories;
 
-    // Account Constructor
-
-//    public Account() {
-//        this("", null, 0.0);
-//    }
-
     public Account(String accountHolder, Bank bank, double balance) {
         this.accountHolder = accountHolder;
         this.bank = bank;
@@ -54,4 +48,5 @@ public class Account {
     public String getBankName() {
         return bank.getBankName();
     }
+    public Bank getBank() {return bank;}
 }
