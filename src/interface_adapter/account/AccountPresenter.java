@@ -5,7 +5,6 @@ import interface_adapter.convert.ConvertState;
 import interface_adapter.convert.ConvertViewModel;
 import use_case.account.AccountOutputBoundary;
 import use_case.account.AccountOutputData;
-import use_case.signup.SignupOutputData;
 
 public class AccountPresenter implements AccountOutputBoundary {
     private final AccountViewModel accountViewModel;

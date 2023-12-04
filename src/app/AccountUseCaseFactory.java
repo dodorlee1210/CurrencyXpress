@@ -1,29 +1,21 @@
 package app;
 
-import entity.CommonUserFactory;
-import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.account.AccountController;
 import interface_adapter.account.AccountPresenter;
 import interface_adapter.account.AccountViewModel;
 import interface_adapter.convert.ConvertViewModel;
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginPresenter;
 import use_case.account.AccountInputBoundary;
 import use_case.account.AccountInteractor;
 import use_case.account.AccountOutputBoundary;
-import use_case.account.AccountUserDataAccessInterface;
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInteractor;
-import use_case.login.LoginOutputBoundary;
 import view.AccountView;
 
 import javax.swing.*;
 import java.io.IOException;
 
-public class AccountFactory {
+public class AccountUseCaseFactory {
     /** Prevent instantiation. */
-    private AccountFactory() {}
+    private AccountUseCaseFactory() {}
 
     public static AccountView create(ViewManagerModel viewManagerModel,
                                      AccountViewModel accountViewModel,

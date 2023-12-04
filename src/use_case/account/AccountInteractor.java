@@ -1,8 +1,5 @@
 package use_case.account;
 
-import interface_adapter.account.AccountPresenter;
-import use_case.signup.SignupInputData;
-
 public class AccountInteractor implements AccountInputBoundary{
     final AccountOutputBoundary accountPresenter;
 

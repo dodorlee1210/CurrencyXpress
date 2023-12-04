@@ -1,8 +1,6 @@
 package interface_adapter.account;
 
 import interface_adapter.ViewModel;
-import interface_adapter.account.AccountState;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
