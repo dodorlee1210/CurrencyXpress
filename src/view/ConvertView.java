@@ -62,15 +62,13 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
                         if (evt.getSource().equals(convert)) {
                             ConvertState currentState = convertViewModel.getState();
 
-                            convertController.execute(
+                            // 여기서 팝업 생성 - 결과 출력
+                            displayPopUpWindow(convertController.execute(
                                     currentState.getSymbolB(),
                                     currentState.getCurrencyB(),
                                     currentState.getSymbolA(),
                                     currentState.getUsername()
-                            );
-
-                            // 여기서 팝업 생성 - 결과 출력
-                            displayPopUpWindow();
+                            ));
                         }
                     }
                 }
@@ -175,7 +173,9 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
 //    }
 
 
-    public void displayPopUpWindow() {
-        JOptionPane.showMessageDialog(this, "팝업 예시!", "Message",JOptionPane.ERROR_MESSAGE );
+    public void displayPopUpWindow(String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg, "Exchange Result", JOptionPane.INFORMATION_MESSAGE);
     }
+
 }
