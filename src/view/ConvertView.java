@@ -65,6 +65,9 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
                                     currentState.getCurrencyB(),
                                     currentState.getSymbolA()
                             );
+
+                            // 여기서 팝업 생성 - 결과 출력
+                            displayPopUpWindow();
                         }
                     }
                 }
@@ -163,5 +166,9 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
         exchangeRateLabel.setText("Exchange Rate: " + state.getExchangeRate());
         remainingMoneyLabel.setText("Remaining Money: " + state.getRemainingMoney());
         exchangeFeeLabel.setText("Exchange Fee: " + state.getExchangeBankFee());
+    }
+
+    public void displayPopUpWindow() {
+        JOptionPane.showMessageDialog(this, "팝업 예시!", "Message",JOptionPane.ERROR_MESSAGE );
     }
 }
