@@ -2,28 +2,21 @@ package entity;
 
 import entity.banks.Bank;
 
-import java.time.LocalDateTime;
-
 public class CommonUser implements User {
 
-    private final String name;
+    private final String username;
     private final String password;
-    private final String userID;
-    private final LocalDateTime creationTime;
-
     private Account userAccount;
 
-    CommonUser(String name, String password, LocalDateTime creationTime, Bank bank, String userID) {
-        this.name = name;
+    CommonUser(String username, String password, Bank bank, double initialBalance, String accountHolder) {
+        this.username = username;
         this.password = password;
-        this.creationTime = creationTime;
-        this.userID = userID;
-        this.userAccount = new Account(name, bank);
+        this.userAccount = new Account(accountHolder, bank, initialBalance);
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     @Override
@@ -31,13 +24,8 @@ public class CommonUser implements User {
         return password;
     }
 
-    @Override
-    public String getUserID() {
-        return userID;
+    public Account getUserAccount() {
+        return userAccount;
     }
 
-    @Override
-    public LocalDateTime getCreationTime() {
-        return creationTime;
-    }
 }

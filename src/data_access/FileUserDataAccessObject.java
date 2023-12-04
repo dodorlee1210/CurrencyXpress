@@ -1,12 +1,14 @@
 package data_access;
 
+import entity.Account;
 import entity.User;
 import entity.UserFactory;
+import entity.banks.*;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
+import entity.banks.Bank;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -28,7 +30,9 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         csvFile = new File(csvPath);
         headers.put("username", 0);
         headers.put("password", 1);
-        headers.put("creation_time", 2);
+        headers.put("Bank Type", 2);
+        headers.put("Initial Balance", 3);
+        headers.put("Account Holder", 4);
 
         if (csvFile.length() == 0) {
             save();
@@ -38,25 +42,52 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 String header = reader.readLine();
 
                 // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("username,password,creation_time");
+                assert header.equals("username,password,Bank Type,Initial Balance,Account Holder");
 
                 String row;
+
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
-                    String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
-                    LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    User user = userFactory.create(username, password, ldt);
+                    String bankType = String.valueOf(col[headers.get("Bank Type")]);
+                    String accountHolder = String.valueOf(col[headers.get("Account Holder")]);
+                    double initialBalance;
+
+                    try {
+                        initialBalance = Double.parseDouble(col[headers.get("Initial Balance")]);
+                    }
+
+                    catch (Exception e) {
+                        System.out.println(e.getStackTrace()); // change exception e to specific exception later
+                        initialBalance = 0.0;
+                    }
+
+                    User user = userFactory.create(username, password, getBank(bankType), initialBalance, accountHolder);
                     accounts.put(username, user);
                 }
             }
         }
     }
 
+    /**
+     * Return the bank object that is specified by the parameter: bankType
+     * @param bankType The object type to return
+     * @return Specified bank object
+     */
+    private Bank getBank(String bankType) {
+        return switch (bankType) {
+            case "BMO" -> new BMO();
+            case "CIBC" -> new CIBC();
+            case "RBC" -> new RBC();
+            case "Scotia" -> new Scotia();
+            default -> new TD();
+        };
+    }
+
     @Override
     public void save(User user) {
-        accounts.put(user.getName(), user);
+        accounts.put(user.getUsername(), user);
         this.save();
     }
 
@@ -73,8 +104,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             writer.newLine();
 
             for (User user : accounts.values()) {
-                String line = String.format("%s,%s,%s",
-                        user.getName(), user.getPassword(), user.getCreationTime());
+                // Bank Type,Initial Balance,Account Holder
+                Account userAccount = user.getUserAccount();
+                String line = String.format("%s,%s,%s,%s,%s",
+                        user.getUsername(), user.getPassword(), userAccount.getBankName(),
+                        userAccount.getBalance(), userAccount.getAccountHolder());
                 writer.write(line);
                 writer.newLine();
             }
@@ -91,7 +125,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         ArrayList<String> usernames = new ArrayList<>();
 
         for (User username : accounts.values()) {
-            usernames.add(username.getName());
+            usernames.add(username.getUsername());
         }
 
         accounts.clear();

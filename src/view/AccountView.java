@@ -1,7 +1,9 @@
 package view;
 
+import interface_adapter.account.AccountController;
 import interface_adapter.account.AccountState;
 import interface_adapter.account.AccountViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,11 +19,12 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     JLabel username;
 
     final JButton logOut;
+    final JButton exchange;
 
     /**
      * A window with a title and a JButton.
      */
-    public AccountView(AccountViewModel accountViewModel) {
+    public AccountView(AccountViewModel accountViewModel, AccountController accountController) {
         this.accountViewModel = accountViewModel;
         this.accountViewModel.addPropertyChangeListener(this);
 
@@ -33,9 +36,23 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
 
         JPanel buttons = new JPanel();
         logOut = new JButton(accountViewModel.LOGOUT_BUTTON_LABEL);
+        exchange = new JButton(accountViewModel.EXCHANGE_BUTTON_LABEL);
         buttons.add(logOut);
+        buttons.add(exchange);
+
+        exchange.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(exchange)) {
+                            accountController.execute();
+                        }
+                    }
+                }
+        );
 
         logOut.addActionListener(this);
+        exchange.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

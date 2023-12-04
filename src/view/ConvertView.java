@@ -12,7 +12,6 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-// 잔액, 환율, 수수료 퍼센테지
 public class ConvertView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "convert";

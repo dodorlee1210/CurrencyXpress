@@ -1,5 +1,6 @@
 package app;
 
+import data_access.FileUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.convert.ConvertController;
 import interface_adapter.convert.ConvertPresenter;
@@ -19,9 +20,10 @@ public class ConvertUseCaseFactory {
 
     public static ConvertView create(ViewManagerModel viewManagerModel,
                                      ConvertViewModel convertViewModel,
-                                     ConvertDataAccessInterface convertDataAccessInterface){
+                                     ConvertDataAccessInterface convertDataAccessInterface,
+                                     FileUserDataAccessObject dataAccessObject){
         try {
-            ConvertController convertController = createConvertUseCase(viewManagerModel, convertViewModel, convertDataAccessInterface);
+            ConvertController convertController = createConvertUseCase(viewManagerModel, convertViewModel, convertDataAccessInterface, dataAccessObject);
             return new ConvertView(convertViewModel, convertController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error in Factory");
@@ -31,9 +33,10 @@ public class ConvertUseCaseFactory {
 
     private static ConvertController createConvertUseCase(ViewManagerModel viewManagerModel,
                                                           ConvertViewModel convertViewModel,
-                                                          ConvertDataAccessInterface convertDataAccessInterface) throws IOException {
+                                                          ConvertDataAccessInterface convertDataAccessInterface,
+                                                          FileUserDataAccessObject dataAccessObject) throws IOException {
         ConvertOutputBoundary convertOutputBoundary = new ConvertPresenter(viewManagerModel, convertViewModel);
-        ConvertInputBoundary convertInteractor = new ConvertInteractor(convertDataAccessInterface, convertOutputBoundary, new Bank());
+        ConvertInputBoundary convertInteractor = new ConvertInteractor(convertDataAccessInterface, convertOutputBoundary, dataAccessObject);
         return new ConvertController(convertInteractor);
     }
 }

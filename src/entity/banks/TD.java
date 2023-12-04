@@ -14,4 +14,8 @@ public class TD implements Bank {
         return exchangeServiceFee;
     }
 
+    @Override
+    public String getBankName() {
+        return bankName;
+    }
 }

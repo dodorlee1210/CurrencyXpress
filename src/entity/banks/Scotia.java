@@ -14,4 +14,8 @@ public class Scotia implements Bank {
         return exchangeServiceFee;
     }
 
+    @Override
+    public String getBankName() {
+        return bankName;
+    }
 }

@@ -1,16 +1,25 @@
 package entity;
 
+import entity.banks.Bank;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
     private String accountHolder;
     private double balance;
+    private Bank bank;
     private List<ExchangeHistory> exchangeHistories;
 
     // Account Constructor
-    public Account(String accountHolder, double balance) {
+
+//    public Account() {
+//        this("", null, 0.0);
+//    }
+
+    public Account(String accountHolder, Bank bank, double balance) {
         this.accountHolder = accountHolder;
+        this.bank = bank;
         this.balance = balance;
         this.exchangeHistories = new ArrayList<>();
     }
@@ -40,5 +49,9 @@ public class Account {
     // Get the exchange history
     public List<ExchangeHistory> getExchangeHistory() {
         return exchangeHistories;
+    }
+
+    public String getBankName() {
+        return bank.getBankName();
     }
 }
