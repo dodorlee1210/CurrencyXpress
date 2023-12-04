@@ -29,12 +29,13 @@ public class ViewExchangeHistoryViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public void onExchangeHistoryRequested() {
-        // Notify the presenter that the user has requested to view exchange history
-        // This could involve calling a method on the presenter or firing an event
-    }
-
     public ViewExchangeHistoryState getState() {
         return state;
+    }
+
+    public void onExchangeHistoryReturned() {
+    }
+
+    public void onExchangeHistoryRequested() {
     }
 }
