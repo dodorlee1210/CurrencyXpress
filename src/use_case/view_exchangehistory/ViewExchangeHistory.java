@@ -1,4 +1,4 @@
-package use_case.ViewExchangeHistory;
+package use_case.view_exchangehistory;
 
 import entity.Account;
 import entity.ExchangeHistory;

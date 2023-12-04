@@ -1,8 +1,8 @@
-package interface_adapter.search;
+package interface_adapter.search_exchangerate;
 
 import interface_adapter.ViewManagerModel;
-import use_case.search.SearchOutputBoundary;
-import use_case.search.SearchOutputData;
+import use_case.search_exchangerate.SearchOutputBoundary;
+import use_case.search_exchangerate.SearchOutputData;
 
 public class SearchPresenter implements SearchOutputBoundary{
     private final SearchViewModel searchViewModel;

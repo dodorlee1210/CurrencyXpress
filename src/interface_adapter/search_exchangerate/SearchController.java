@@ -1,7 +1,7 @@
-package interface_adapter.search;
+package interface_adapter.search_exchangerate;
 
-import use_case.search.SearchInputBoundary;
-import use_case.search.SearchInputData;
+import use_case.search_exchangerate.SearchInputBoundary;
+import use_case.search_exchangerate.SearchInputData;
 
 public class SearchController {
 

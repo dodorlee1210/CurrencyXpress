@@ -45,7 +45,8 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(exchange)) {
-                            accountController.execute();
+                            AccountState currentState = accountViewModel.getState();
+                            accountController.execute(currentState.getUsername());
                         }
                     }
                 }

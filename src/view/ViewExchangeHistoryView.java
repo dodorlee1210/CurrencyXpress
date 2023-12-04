@@ -1,7 +1,7 @@
 package view;
 
-import interface_adapter.ViewExchangeHistory.ViewExchangeHistoryState;
-import interface_adapter.ViewExchangeHistory.ViewExchangeHistoryViewModel;
+import interface_adapter.view_exchangehistory.ViewExchangeHistoryState;
+import interface_adapter.view_exchangehistory.ViewExchangeHistoryViewModel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
