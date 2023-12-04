@@ -3,7 +3,6 @@ package view;
 import interface_adapter.account.AccountController;
 import interface_adapter.account.AccountState;
 import interface_adapter.account.AccountViewModel;
-import interface_adapter.login.LoginState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,11 +45,7 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(exchange)) {
-                            AccountState currentState = accountViewModel.getState();
-
-                            accountController.execute(
-                                    currentState.getUsername()
-                            );
+                            accountController.execute();
                         }
                     }
                 }
