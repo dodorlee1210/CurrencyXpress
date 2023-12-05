@@ -30,6 +30,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     private final JButton signUp;
     private final JButton cancel;
+    private final JButton logIn;
 
     // this is the new JButton for clearing the users file
     private final JButton clear;
@@ -58,6 +59,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
+        logIn = new JButton(SignupViewModel.LOGIN_BUTTON_LABEL);
+        buttons.add(logIn);
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
@@ -80,8 +83,29 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                                     currentState.getRepeatPassword(),
                                     currentState.getBank(),
                                     Double.parseDouble(currentState.getInitialBalance()),
-                                    currentState.getAccountHolder()
+                                    currentState.getAccountHolder(),
+                                    currentState.getPass()
                             );
+                        }
+                    }
+                }
+        );
+
+        logIn.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logIn)) {
+                            SignupState currentState = signupViewModel.getState();
+                            currentState.setPass("pass");
+
+                            signupController.execute(currentState.getUsername(),
+                                    currentState.getPassword(),
+                                    currentState.getRepeatPassword(),
+                                    currentState.getBank(),
+                                    0.0,
+                                    currentState.getAccountHolder(),
+                                    currentState.getPass());
                         }
                     }
                 }

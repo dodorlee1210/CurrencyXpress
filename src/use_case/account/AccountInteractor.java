@@ -8,7 +8,8 @@ public class AccountInteractor implements AccountInputBoundary{
     }
 
     public void execute(AccountInputData accountInputData) {
-        AccountOutputData accountOutputData = new AccountOutputData(accountInputData.getUsername(), false);
-        accountPresenter.prepareSearchView(accountOutputData);
+        AccountOutputData accountOutputData = new AccountOutputData(accountInputData.getUsername(),
+                accountInputData.getMethod(), false);
+        accountPresenter.prepareSuccessView(accountOutputData);
     }
 }

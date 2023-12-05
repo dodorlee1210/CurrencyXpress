@@ -12,6 +12,7 @@ public class SignupState {
     private String accountHolder = "";
     private Bank bank;
     private String initialBalance = "";
+    private String pass = "";
 
 
 
@@ -25,13 +26,16 @@ public class SignupState {
         accountHolder = copy.accountHolder;
         bank = copy.bank;
         initialBalance = copy.initialBalance;
+        pass = copy.pass;
 
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
     public SignupState() {
     }
-
+    public String getPass() {
+        return pass;
+    }
     public String getUsername() {
         return username;
     }
@@ -66,6 +70,9 @@ public class SignupState {
 
     public String getInitialBalance() {
         return initialBalance;
+    }
+    public void setPass(String pass){
+        this.pass = pass;
     }
 
     public void setUsername(String username) {
