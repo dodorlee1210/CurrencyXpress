@@ -30,6 +30,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     private final JButton signUp;
     private final JButton cancel;
+    private final JButton logIn;
 
     // this is the new JButton for clearing the users file
     private final JButton clear;
@@ -58,12 +59,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
+        logIn = new JButton(SignupViewModel.LOGIN_BUTTON_LABEL);
+        buttons.add(logIn);
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
-
-        // the following line instantiates the "clear" button; it uses
-        //      a CLEAR_BUTTON_LABEL constant which is defined in the SignupViewModel class.
-        //      You need to add this "clear" button to the "buttons" panel.
         clear = new JButton(SignupViewModel.CLEAR_BUTTON_LABEL);
         buttons.add(clear);
 
@@ -80,8 +79,29 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                                     currentState.getRepeatPassword(),
                                     currentState.getBank(),
                                     Double.parseDouble(currentState.getInitialBalance()),
-                                    currentState.getAccountHolder()
+                                    currentState.getAccountHolder(),
+                                    currentState.getPass()
                             );
+                        }
+                    }
+                }
+        );
+
+        logIn.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logIn)) {
+                            SignupState currentState = signupViewModel.getState();
+                            currentState.setPass("pass");
+
+                            signupController.execute(currentState.getUsername(),
+                                    currentState.getPassword(),
+                                    currentState.getRepeatPassword(),
+                                    currentState.getBank(),
+                                    0.0,
+                                    currentState.getAccountHolder(),
+                                    currentState.getPass());
                         }
                     }
                 }
@@ -109,7 +129,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        cancel.addActionListener(this);
+        cancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(cancel)) {
+                    System.exit(0);
+                }
+            }
+        });
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the usernameInputField.

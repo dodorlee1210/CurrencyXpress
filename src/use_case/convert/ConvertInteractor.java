@@ -3,7 +3,6 @@ package use_case.convert;
 import data_access.FileUserDataAccessObject;
 import entity.Account;
 import entity.User;
-import entity.banks.Bank;
 
 public class ConvertInteractor implements ConvertInputBoundary {
 
@@ -11,6 +10,7 @@ public class ConvertInteractor implements ConvertInputBoundary {
     final ConvertOutputBoundary convertPresenter;
     FileUserDataAccessObject dataAccessObject;
     String exchangeResult;
+
 
     public ConvertInteractor(ConvertDataAccessInterface convertDataAccessInterface,
                              ConvertOutputBoundary convertOutputBoundary, FileUserDataAccessObject dataAccessObject) {
@@ -45,11 +45,14 @@ public class ConvertInteractor implements ConvertInputBoundary {
                 double serviceFees = account.getBank().getExchangeServiceFee();
                 String exchangedAmount = convertDataAccessInterface.calculateExchange(currencyB, currency[1], serviceFees);
                 double leftover = account.getBalance() - Double.parseDouble(currencyB);
-                account.setBalance(leftover);
-                // Can't save exchanged amount in account
                 ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], exchangedAmount,
                         leftover,false);
                 convertPresenter.prepareSuccessView(convertOutputData);
+
+                // Probably need an update method
+//                User changedUser = userFactory.create(user.getUsername(), user.getPassword(),
+//                        account.getBank(), leftover, account.getAccountHolder());
+//                dataAccessObject.save(changedUser);
 
                 exchangeResult = convertOutputData.getSymbolA() + "\n" +
                          convertOutputData.getCurrencyA() + "\n" +
