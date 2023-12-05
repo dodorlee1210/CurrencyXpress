@@ -5,6 +5,7 @@ import interface_adapter.account.AccountController;
 import interface_adapter.account.AccountPresenter;
 import interface_adapter.account.AccountViewModel;
 import interface_adapter.convert.ConvertViewModel;
+import interface_adapter.search_exchangerate.SearchViewModel;
 import use_case.account.AccountInputBoundary;
 import use_case.account.AccountInteractor;
 import use_case.account.AccountOutputBoundary;

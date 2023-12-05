@@ -9,6 +9,6 @@ public class AccountInteractor implements AccountInputBoundary{
 
     public void execute(AccountInputData accountInputData) {
         AccountOutputData accountOutputData = new AccountOutputData(accountInputData.getUsername(), false);
-        accountPresenter.prepareConvertView(accountOutputData);
+        accountPresenter.prepareSearchView(accountOutputData);
     }
 }

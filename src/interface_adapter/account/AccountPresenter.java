@@ -5,10 +5,12 @@ import interface_adapter.convert.ConvertState;
 import interface_adapter.convert.ConvertViewModel;
 import use_case.account.AccountOutputBoundary;
 import use_case.account.AccountOutputData;
-
+import interface_adapter.search_exchangerate.SearchState;
+import interface_adapter.search_exchangerate.SearchViewModel;
 public class AccountPresenter implements AccountOutputBoundary {
     private final AccountViewModel accountViewModel;
     private final ConvertViewModel convertViewModel;
+
     private ViewManagerModel viewManagerModel;
 
     public AccountPresenter(ViewManagerModel viewManagerModel, AccountViewModel accountViewModel,
@@ -28,6 +30,8 @@ public class AccountPresenter implements AccountOutputBoundary {
         viewManagerModel.setActiveView(convertViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
+
 
 //    public void prepareLogOutView(String error) {
 //        SignupState signupState = signupViewModel.getState();

@@ -21,6 +21,8 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     final JButton logOut;
     final JButton exchange;
 
+    final JButton search;
+
     /**
      * A window with a title and a JButton.
      */
@@ -37,8 +39,10 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
         JPanel buttons = new JPanel();
         logOut = new JButton(accountViewModel.LOGOUT_BUTTON_LABEL);
         exchange = new JButton(accountViewModel.EXCHANGE_BUTTON_LABEL);
+        search = new JButton(accountViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(logOut);
         buttons.add(exchange);
+        buttons.add(search);
 
         exchange.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -52,8 +56,21 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
+        search.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(search)) {
+                            AccountState currentState = accountViewModel.getState();
+                            accountController.execute(currentState.getUsername());
+                        }
+                    }
+                }
+        );
+
         logOut.addActionListener(this);
         exchange.addActionListener(this);
+        search.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

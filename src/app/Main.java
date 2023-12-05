@@ -7,7 +7,9 @@ import interface_adapter.account.AccountViewModel;
 import interface_adapter.convert.ConvertViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.search_exchangerate.SearchViewModel;
 import use_case.convert.CurrencyConverter;
+import use_case.SearchCurrency;
 import view.*;
 
 import javax.swing.*;
@@ -40,9 +42,11 @@ public class Main {
         AccountViewModel accountViewModel = new AccountViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         ConvertViewModel convertViewModel = new ConvertViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         CurrencyConverter convertDataAccessObject;
+        SearchCurrency searchDataAccessObject;
 
         try {
             userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
@@ -52,6 +56,12 @@ public class Main {
 
         try {
             convertDataAccessObject = new CurrencyConverter();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            searchDataAccessObject = new SearchCurrency();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -67,6 +77,9 @@ public class Main {
 
         ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, convertDataAccessObject, userDataAccessObject);
         views.add(convertView, convertView.viewName);
+
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, searchDataAccessObject, userDataAccessObject);
+        views.add(searchView, searchView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
