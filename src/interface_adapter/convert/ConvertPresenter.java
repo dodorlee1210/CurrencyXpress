@@ -1,6 +1,7 @@
 package interface_adapter.convert;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.account.AccountState;
 import interface_adapter.account.AccountViewModel;
 import use_case.convert.ConvertOutputBoundary;
 import use_case.convert.ConvertOutputData;
@@ -36,6 +37,11 @@ public class ConvertPresenter implements ConvertOutputBoundary {
             this.viewManagerModel.setActiveView(accountViewModel.getViewName());
             this.viewManagerModel.firePropertyChanged();
         } else {
+            AccountState accountState = accountViewModel.getState();
+            accountState.setBalance(String.valueOf(response.getLeftAmount()));
+//            accountState.setCurrencies(response.getCurrencies);
+            accountViewModel.firePropertyChanged();
+
             convertState.setCurrencyA(response.getCurrencyA());
             convertState.setSymbolA(response.getSymbolA());
             this.convertViewModel.setState(convertState);

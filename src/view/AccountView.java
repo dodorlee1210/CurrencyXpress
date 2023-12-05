@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class AccountView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -19,10 +22,13 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     private ViewExchangeHistoryViewModel viewExchangeHistoryViewModel;
 
     JLabel username;
+    JLabel balance;
+    JLabel bank;
 
     final JButton logOut;
     final JButton exchange;
     final JButton viewExchangeHistory;
+//    private JTable otherCurrencies;
 
     /**
      * A window with a title and a JButton.
@@ -36,10 +42,16 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
         viewExchangeHistory.addActionListener(this);
 
         JLabel title = new JLabel("Account Screen");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel usernameInfo = new JLabel("Currently logged in: ");
         username = new JLabel();
+        JLabel balanceInfo = new JLabel("Current Balance: ");
+        balance = new JLabel();
+        JLabel bankInfo = new JLabel("Bank Selected: ");
+        bank = new JLabel();
+
+//        otherCurrencies = new JTable();
+//        JScrollPane sp = new JScrollPane(otherCurrencies);
 
         JPanel buttons = new JPanel();
         logOut = new JButton(accountViewModel.LOGOUT_BUTTON_LABEL);
@@ -73,13 +85,30 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
                 }
         );
       
-        viewExchangeHistory.addActionListener(this);         
+        viewExchangeHistory.addActionListener(this);
+
+        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        titlePanel.add(title);
+
+        JPanel usernamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        usernamePanel.add(usernameInfo);
+        usernamePanel.add(username);
+
+        JPanel balancePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        balancePanel.add(balanceInfo);
+        balancePanel.add(balance);
+
+        JPanel bankPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bankPanel.add(bankInfo);
+        bankPanel.add(bank);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(username);
+        this.add(titlePanel);
+        this.add(usernamePanel);
+        this.add(bankPanel);
+        this.add(balancePanel);
+        this.add(Box.createVerticalGlue());
         this.add(buttons);
     }
 
@@ -97,5 +126,8 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     public void propertyChange(PropertyChangeEvent evt) {
         AccountState state = (AccountState) evt.getNewValue();
         username.setText(state.getUsername());
+        balance.setText(state.getBalance());
+        bank.setText(state.getBank());
+//        String[] column = {"Currency Code","Amount"};
+        }
     }
-}
