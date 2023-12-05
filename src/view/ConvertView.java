@@ -43,11 +43,11 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel symbolBInfo = new LabelTextPanel(
-                new JLabel("Code for Currency to Convert"), symbolBInputField);
+                new JLabel("Currency Code to Convert"), symbolBInputField);
         LabelTextPanel currencyBInfo = new LabelTextPanel(
                 new JLabel("Amount to Exchange"), currencyBInputField);
         LabelTextPanel symbolAInfo = new LabelTextPanel(
-                new JLabel("Code for Currency to Receive"), symbolAInputField);
+                new JLabel("Currency Code to Receive"), symbolAInputField);
 
         JPanel buttons = new JPanel();
         convert = new JButton(convertViewModel.CONVERT_BUTTON_LABEL);
@@ -62,7 +62,6 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
                         if (evt.getSource().equals(convert)) {
                             ConvertState currentState = convertViewModel.getState();
 
-                            // 여기서 팝업 생성 - 결과 출력
                             displayPopUpWindow(convertController.execute(
                                     currentState.getSymbolB(),
                                     currentState.getCurrencyB(),

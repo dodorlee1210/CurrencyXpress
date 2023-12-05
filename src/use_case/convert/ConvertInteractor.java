@@ -2,7 +2,11 @@ package use_case.convert;
 
 import data_access.FileUserDataAccessObject;
 import entity.Account;
+import entity.ExchangeHistory;
 import entity.User;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ConvertInteractor implements ConvertInputBoundary {
 
@@ -49,17 +53,31 @@ public class ConvertInteractor implements ConvertInputBoundary {
                         leftover,false);
                 convertPresenter.prepareSuccessView(convertOutputData);
 
-                // Probably need an update method
-//                User changedUser = userFactory.create(user.getUsername(), user.getPassword(),
-//                        account.getBank(), leftover, account.getAccountHolder());
-//                dataAccessObject.save(changedUser);
+                double newAccountBalance = convertOutputData.getLeftAmount();
+                // round down the double value up to 2 decimal place
+                //   ex: 1.246   = 1.24
+                //   ex: 3.21194 = 3.21
+                double exchangedValue = BigDecimal.valueOf(Double.parseDouble(exchangedAmount)).setScale(2, RoundingMode.HALF_DOWN).doubleValue();
 
-                exchangeResult = convertOutputData.getSymbolA() + "\n" +
-                         convertOutputData.getCurrencyA() + "\n" +
-                        "Balance: " + convertOutputData.getLeftAmount();
+                exchangeResult = "Convert " + symbolB + " to " + symbolA + "\n" +
+                        exchangedValue + "\n" + "Balance: " + newAccountBalance;
+
+                updateUserAccount(account, newAccountBalance, symbolA, exchangedValue);
+                addExchangeHistory(account, symbolB, symbolA, exchangedValue, serviceFees);
             }
         }
 
         return exchangeResult;
+    }
+
+    private void updateUserAccount(Account userAccount, double newAccountBalance,
+                                   String newCurrencyCode, double newCurrencyBalance) {
+        userAccount.setBalance(newAccountBalance);
+        userAccount.setForeignCurrency(newCurrencyCode, newCurrencyBalance);
+    }
+
+    private void addExchangeHistory(Account userAccount, String currencyCode,
+                                    String newCurrencyCode, double exchangedValue, double serviceFee) {
+        userAccount.addExchangeHistory(new ExchangeHistory(currencyCode, newCurrencyCode, exchangedValue, serviceFee));
     }
 }
