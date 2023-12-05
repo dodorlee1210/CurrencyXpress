@@ -3,19 +3,21 @@ package entity;
 import entity.banks.Bank;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Account {
     private String accountHolder;
     private double balance;
-    private Bank bank;
-    private List<ExchangeHistory> exchangeHistories;
+    private final Bank bank;
+    private final List<ExchangeHistory> exchangeHistories = new ArrayList<>();
+    private final HashMap<String, Double> foreignCurrency  = new HashMap<>();
+
 
     public Account(String accountHolder, Bank bank, double balance) {
         this.accountHolder = accountHolder;
         this.bank = bank;
         this.balance = balance;
-        this.exchangeHistories = new ArrayList<>();
     }
 
     // Getters and setters
@@ -48,5 +50,28 @@ public class Account {
     public String getBankName() {
         return bank.getBankName();
     }
-    public Bank getBank() {return bank;}
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setForeignCurrency(String currencyCode, double amount) {
+        if (foreignCurrency.containsKey(currencyCode)) {
+            foreignCurrency.replace(currencyCode, foreignCurrency.get(currencyCode) + amount);
+        }
+
+        else {
+            foreignCurrency.put(currencyCode, amount);
+        }
+    }
+
+    public double getForeignCurrency(String currencyCode) {
+        double balance = 0.0;
+
+        if (foreignCurrency.containsKey(currencyCode)) {
+            balance = foreignCurrency.get(currencyCode);
+        }
+
+        return balance;
+    }
 }

@@ -62,7 +62,6 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
                         if (evt.getSource().equals(convert)) {
                             ConvertState currentState = convertViewModel.getState();
 
-                            // 여기서 팝업 생성 - 결과 출력
                             displayPopUpWindow(convertController.execute(
                                     currentState.getSymbolB(),
                                     currentState.getCurrencyB(),

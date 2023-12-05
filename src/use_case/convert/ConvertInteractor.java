@@ -49,17 +49,22 @@ public class ConvertInteractor implements ConvertInputBoundary {
                         leftover,false);
                 convertPresenter.prepareSuccessView(convertOutputData);
 
-                // Probably need an update method
-//                User changedUser = userFactory.create(user.getUsername(), user.getPassword(),
-//                        account.getBank(), leftover, account.getAccountHolder());
-//                dataAccessObject.save(changedUser);
+                double newAccountBalance = convertOutputData.getLeftAmount();
 
-                exchangeResult = convertOutputData.getSymbolA() + "\n" +
-                         convertOutputData.getCurrencyA() + "\n" +
-                        "Balance: " + convertOutputData.getLeftAmount();
+                exchangeResult = "Convert " + symbolB + " to " + symbolA + "\n" +
+                        exchangedAmount + "\n" + "Balance: " + newAccountBalance;
+
+                updateUserAccount(account, newAccountBalance, symbolA, Double.parseDouble(exchangedAmount));
             }
         }
 
         return exchangeResult;
     }
+
+    private void updateUserAccount(Account userAccount, double newAccountBalance,
+                                   String newCurrencyCode, double newCurrencyBalance) {
+        userAccount.setBalance(newAccountBalance);
+        userAccount.setForeignCurrency(newCurrencyCode, newCurrencyBalance);
+    }
+    
 }
