@@ -12,7 +12,7 @@ public class SignupViewModel extends ViewModel {
     public static final String USERNAME_LABEL = "Choose username";
     public static final String PASSWORD_LABEL = "Choose password";
     public static final String REPEAT_PASSWORD_LABEL = "Enter password again";
-    public static final String BANK_LABEL = "Choose Preferred Bank";
+    public static final String LOGIN_BUTTON_LABEL = "Log in";
     public static final String ACCOUNTHOLDER_LABEL = "Your Name";
     public static final String INITIAL_BALANCE_LABEL = "Choose Account Balance";
 
