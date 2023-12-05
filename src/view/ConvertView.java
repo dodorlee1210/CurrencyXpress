@@ -43,11 +43,11 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel symbolBInfo = new LabelTextPanel(
-                new JLabel("Code for Currency to Convert"), symbolBInputField);
+                new JLabel("Currency Code to Convert"), symbolBInputField);
         LabelTextPanel currencyBInfo = new LabelTextPanel(
                 new JLabel("Amount to Exchange"), currencyBInputField);
         LabelTextPanel symbolAInfo = new LabelTextPanel(
-                new JLabel("Code for Currency to Receive"), symbolAInputField);
+                new JLabel("Currency Code to Receive"), symbolAInputField);
 
         JPanel buttons = new JPanel();
         convert = new JButton(convertViewModel.CONVERT_BUTTON_LABEL);
