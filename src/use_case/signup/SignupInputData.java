@@ -11,14 +11,17 @@ public class SignupInputData {
     private double initialBalance;
     private String accountHolder;
 
+    private String pass;
+
     public SignupInputData(String username, String password, String repeatPassword,
-                           Bank bank, double initialBalance, String accountHolder) {
+                           Bank bank, double initialBalance, String accountHolder, String pass) {
         this.username = username;
         this.password = password;
         this.repeatPassword = repeatPassword;
         this.accountHolder = accountHolder;
         this.bank = bank;
         this.initialBalance = initialBalance;
+        this.pass = pass;
     }
 
     String getUsername() {
@@ -43,5 +46,9 @@ public class SignupInputData {
 
     public String getAccountHolder() {
         return accountHolder;
+    }
+
+    public String getPass() {
+        return pass;
     }
 }

@@ -62,7 +62,7 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, accountViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        AccountView accountView = AccountUseCaseFactory.create(viewManagerModel, accountViewModel, convertViewModel);
+        AccountView accountView = AccountUseCaseFactory.create(viewManagerModel, accountViewModel, convertViewModel, loginViewModel);
         views.add(accountView, accountView.viewName);
 
         ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel,
