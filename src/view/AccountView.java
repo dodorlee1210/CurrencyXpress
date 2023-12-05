@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.view_exchangehistory.ViewExchangeHistoryViewModel;
 import interface_adapter.account.AccountController;
 import interface_adapter.account.AccountState;
 import interface_adapter.account.AccountViewModel;
@@ -15,11 +16,13 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
 
     public final String viewName = "logged in";
     private final AccountViewModel accountViewModel;
+    private ViewExchangeHistoryViewModel viewExchangeHistoryViewModel;
 
     JLabel username;
 
     final JButton logOut;
     final JButton exchange;
+    final JButton viewExchangeHistory;
 
     /**
      * A window with a title and a JButton.
@@ -27,6 +30,10 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     public AccountView(AccountViewModel accountViewModel, AccountController accountController) {
         this.accountViewModel = accountViewModel;
         this.accountViewModel.addPropertyChangeListener(this);
+        this.viewExchangeHistoryViewModel = viewExchangeHistoryViewModel;
+
+        viewExchangeHistory = new JButton("Exchange History");
+        viewExchangeHistory.addActionListener(this);
 
         JLabel title = new JLabel("Account Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -39,6 +46,7 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
         exchange = new JButton(accountViewModel.EXCHANGE_BUTTON_LABEL);
         buttons.add(logOut);
         buttons.add(exchange);
+        buttons.add(viewExchangeHistory);
 
         exchange.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -46,12 +54,13 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(exchange)) {
                             AccountState currentState = accountViewModel.getState();
+                            accountController.execute(currentState.getUsername());
                             currentState.setMethod("exchange");
                             accountController.execute(currentState.getUsername(), currentState.getMethod());
                         }
                     }
                 }
-        );
+        );    
 
         logOut.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -65,6 +74,8 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
                     }
                 }
         );
+      
+        viewExchangeHistory.addActionListener(this);         
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -78,7 +89,12 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
+        if (evt.getSource().equals(logOut)) {
+            System.out.println("Click " + evt.getActionCommand());
+        } else if (evt.getSource().equals(viewExchangeHistory)) {
+            // Show exchange history popup directly from AccountView
+            viewExchangeHistoryViewModel.onExchangeHistoryRequested();
+        }
     }
 
     @Override
