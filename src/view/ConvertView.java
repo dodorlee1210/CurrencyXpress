@@ -81,12 +81,12 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
                             ConvertState currentState = convertViewModel.getState();
                             currentState.setSymbolA("HOME");
 
-                            displayPopUpWindow(convertController.execute(
+                            convertController.execute(
                                     currentState.getSymbolB(),
                                     currentState.getCurrencyB(),
                                     currentState.getSymbolA(),
                                     currentState.getUsername()
-                            ));
+                            );
                         }
                     }
                 }

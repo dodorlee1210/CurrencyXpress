@@ -6,9 +6,9 @@ public class LoginOutputData {
     private boolean useCaseFailed;
     String bank;
     double balance;
-    String[] currencies;
+    String[][] currencies;
 
-    public LoginOutputData(String username, String bank, double balance, String[] currencies, boolean useCaseFailed) {
+    public LoginOutputData(String username, String bank, double balance, String[][] currencies, boolean useCaseFailed) {
         this.username = username;
         this.bank = bank;
         this.balance = balance;
@@ -20,7 +20,7 @@ public class LoginOutputData {
         return username;
     }
 
-    public String[] getCurrencies() {
+    public String[][] getCurrencies() {
         return currencies;
     }
 
