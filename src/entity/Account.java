@@ -76,8 +76,8 @@ public class Account {
     }
 
     public String[][] getAllForeignCurrencies() {
-        int size = foreignCurrency.size(), i = 0;
-        String[][] foreignCurrencies = new String[size][];
+        int i = 0;
+        String[][] foreignCurrencies = new String[foreignCurrency.size()][];
 
         for (String currencyCode: foreignCurrency.keySet()) {
             String[] singleForeignCurrency = {currencyCode, String.valueOf(foreignCurrency.get(currencyCode))};
