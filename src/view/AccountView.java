@@ -87,9 +87,7 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource().equals(logOut)) {
-            System.out.println("Click " + evt.getActionCommand());
-        } else if (evt.getSource().equals(viewExchangeHistory)) {
+        if (evt.getSource().equals(viewExchangeHistory)) {
             // Show exchange history popup directly from AccountView
             viewExchangeHistoryViewModel.onExchangeHistoryRequested();
         }
