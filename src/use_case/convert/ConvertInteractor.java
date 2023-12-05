@@ -28,8 +28,13 @@ public class ConvertInteractor implements ConvertInputBoundary {
         String symbolB = convertInputData.getSymbolB();
         String currencyB = convertInputData.getCurrencyB();
         String symbolA = convertInputData.getSymbolA();
+        User user = dataAccessObject.get(convertInputData.getUsername());
+        Account account = user.getUserAccount();
 
-        if (!convertDataAccessInterface.existsByCode(symbolB)) {
+        if (symbolA.equals("HOME")) {
+            convertPresenter.prepareSuccessView(new ConvertOutputData("HOME",
+                    "", account.getBalance(), false));
+        } else if (!convertDataAccessInterface.existsByCode(symbolB)) {
             convertPresenter.prepareFailView(symbolB + ": Currency Code does not exist (B).");
             exchangeResult = "Error: " + "Currency Code does not exist (B).";
         } else if (!currencyB.matches("\\d+(\\.\\d+)?")) {
@@ -44,11 +49,10 @@ public class ConvertInteractor implements ConvertInputBoundary {
                 exchangeResult = "Error: " + "Exchange does not happen for same currency codes.";
             } else {
                 String[] currency = convertDataAccessInterface.get(symbolA).split(":");
-                User user = dataAccessObject.get(convertInputData.getUsername());
-                Account account = user.getUserAccount();
                 double serviceFees = account.getBank().getExchangeServiceFee();
                 String exchangedAmount = convertDataAccessInterface.calculateExchange(currencyB, currency[1], serviceFees);
                 double leftover = account.getBalance() - Double.parseDouble(currencyB);
+
                 ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], exchangedAmount,
                         leftover,false);
                 convertPresenter.prepareSuccessView(convertOutputData);

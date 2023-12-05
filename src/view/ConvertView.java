@@ -73,8 +73,24 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
-        home.addActionListener(this);
+        home.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(home)) {
+                            ConvertState currentState = convertViewModel.getState();
+                            currentState.setSymbolA("HOME");
 
+                            displayPopUpWindow(convertController.execute(
+                                    currentState.getSymbolB(),
+                                    currentState.getCurrencyB(),
+                                    currentState.getSymbolA(),
+                                    currentState.getUsername()
+                            ));
+                        }
+                    }
+                }
+        );
         symbolBInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {

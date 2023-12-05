@@ -2,6 +2,7 @@ package app;
 
 import data_access.FileUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.account.AccountViewModel;
 import interface_adapter.convert.ConvertController;
 import interface_adapter.convert.ConvertPresenter;
 import interface_adapter.convert.ConvertViewModel;
@@ -20,10 +21,11 @@ public class ConvertUseCaseFactory {
 
     public static ConvertView create(ViewManagerModel viewManagerModel,
                                      ConvertViewModel convertViewModel,
+                                     AccountViewModel accountViewModel,
                                      ConvertDataAccessInterface convertDataAccessInterface,
                                      FileUserDataAccessObject dataAccessObject){
         try {
-            ConvertController convertController = createConvertUseCase(viewManagerModel, convertViewModel, convertDataAccessInterface, dataAccessObject);
+            ConvertController convertController = createConvertUseCase(viewManagerModel, convertViewModel, accountViewModel, convertDataAccessInterface, dataAccessObject);
             return new ConvertView(convertViewModel, convertController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error in Factory");
@@ -33,9 +35,10 @@ public class ConvertUseCaseFactory {
 
     private static ConvertController createConvertUseCase(ViewManagerModel viewManagerModel,
                                                           ConvertViewModel convertViewModel,
+                                                          AccountViewModel accountViewModel,
                                                           ConvertDataAccessInterface convertDataAccessInterface,
                                                           FileUserDataAccessObject dataAccessObject) throws IOException {
-        ConvertOutputBoundary convertOutputBoundary = new ConvertPresenter(viewManagerModel, convertViewModel);
+        ConvertOutputBoundary convertOutputBoundary = new ConvertPresenter(viewManagerModel, convertViewModel, accountViewModel);
         ConvertInputBoundary convertInteractor = new ConvertInteractor(convertDataAccessInterface, convertOutputBoundary, dataAccessObject);
         return new ConvertController(convertInteractor);
     }
