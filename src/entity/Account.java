@@ -74,4 +74,16 @@ public class Account {
 
         return balance;
     }
+
+    public String[][] getAllForeignCurrencies() {
+        int i = 0;
+        String[][] foreignCurrencies = new String[foreignCurrency.size()][];
+
+        for (String currencyCode: foreignCurrency.keySet()) {
+            String[] singleForeignCurrency = {currencyCode, String.valueOf(foreignCurrency.get(currencyCode))};
+            foreignCurrencies[i++] = singleForeignCurrency;
+        }
+
+        return foreignCurrencies;
+    }
 }
