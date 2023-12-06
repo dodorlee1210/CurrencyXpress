@@ -33,7 +33,7 @@ public class ConvertInteractor implements ConvertInputBoundary {
 
         if (symbolA.equals("HOME")) {
             convertPresenter.prepareSuccessView(new ConvertOutputData("HOME",
-                    "", account.getBalance(), false));
+                    "", account.getBalance(), account.getAllForeignCurrencies(), false));
         } else if (!convertDataAccessInterface.existsByCode(symbolB)) {
             convertPresenter.prepareFailView(symbolB + ": Currency Code does not exist (B).");
             exchangeResult = "Error: " + "Currency Code does not exist (B).";
@@ -52,9 +52,10 @@ public class ConvertInteractor implements ConvertInputBoundary {
                 double serviceFees = account.getBank().getExchangeServiceFee();
                 String exchangedAmount = convertDataAccessInterface.calculateExchange(currencyB, currency[1], serviceFees);
                 double leftover = account.getBalance() - Double.parseDouble(currencyB);
+//                String[][] result = {{symbolA, exchangedAmount}};
 
                 ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], exchangedAmount,
-                        leftover,false);
+                        leftover, account.getAllForeignCurrencies(), false);
                 convertPresenter.prepareSuccessView(convertOutputData);
 
                 double newAccountBalance = convertOutputData.getLeftAmount();

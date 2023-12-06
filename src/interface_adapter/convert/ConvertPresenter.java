@@ -39,7 +39,7 @@ public class ConvertPresenter implements ConvertOutputBoundary {
         } else {
             AccountState accountState = accountViewModel.getState();
             accountState.setBalance(String.valueOf(response.getLeftAmount()));
-//            accountState.setCurrencies(response.getCurrencies);
+            accountState.setCurrencies(response.getCurrencies());
             accountViewModel.firePropertyChanged();
 
             convertState.setCurrencyA(response.getCurrencyA());

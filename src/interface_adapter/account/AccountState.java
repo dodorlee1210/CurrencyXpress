@@ -5,7 +5,7 @@ public class AccountState {
     private String method;
     private String bank;
     private String balance;
-    private String[] currencies;
+    private String[][] currencies;
 
 
     public AccountState(AccountState copy) {
@@ -35,7 +35,7 @@ public class AccountState {
         return balance;
     }
 
-    public String[] getCurrencies() {
+    public String[][] getCurrencies() {
         return currencies;
     }
 
@@ -55,7 +55,7 @@ public class AccountState {
         this.balance = balance;
     }
 
-    public void setCurrencies(String[] currencies) {
+    public void setCurrencies(String[][] currencies) {
         this.currencies = currencies;
     }
 }

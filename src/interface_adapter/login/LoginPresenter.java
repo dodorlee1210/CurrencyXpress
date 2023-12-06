@@ -37,7 +37,6 @@ public class LoginPresenter implements LoginOutputBoundary {
             loggedInState.setUsername(response.getUsername());
             loggedInState.setBank(response.getBank());
             loggedInState.setBalance(String.valueOf(response.getBalance()));
-            loggedInState.setCurrencies(response.getCurrencies());
             this.accountViewModel.setState(loggedInState);
             this.accountViewModel.firePropertyChanged();
 

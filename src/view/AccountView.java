@@ -28,7 +28,7 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     final JButton logOut;
     final JButton exchange;
     final JButton viewExchangeHistory;
-//    private JTable otherCurrencies;
+    private JTable otherCurrencies;
 
     /**
      * A window with a title and a JButton.
@@ -50,8 +50,12 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
         JLabel bankInfo = new JLabel("Bank Selected: ");
         bank = new JLabel();
 
-//        otherCurrencies = new JTable();
-//        JScrollPane sp = new JScrollPane(otherCurrencies);
+//        DefaultTableModel tableModel = new DefaultTableModel();
+//        otherCurrencies = new JTable(tableModel);
+        String[] column = {"Currency Code","Amount"};
+        String[][] example = {{"???", "000"}};
+        otherCurrencies = new JTable(example, column);
+
 
         JPanel buttons = new JPanel();
         logOut = new JButton(accountViewModel.LOGOUT_BUTTON_LABEL);
@@ -108,6 +112,7 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
         this.add(usernamePanel);
         this.add(bankPanel);
         this.add(balancePanel);
+        this.add(otherCurrencies);
         this.add(Box.createVerticalGlue());
         this.add(buttons);
     }
@@ -126,8 +131,10 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     public void propertyChange(PropertyChangeEvent evt) {
         AccountState state = (AccountState) evt.getNewValue();
         username.setText(state.getUsername());
-        balance.setText(state.getBalance());
+        balance.setText(state.getBalance() + " EUR");
         bank.setText(state.getBank());
-//        String[] column = {"Currency Code","Amount"};
+        String[] column = {"Currency Code","Amount"};
+        String[][] currencies = state.getCurrencies();
+        otherCurrencies = new JTable(currencies, column);
         }
     }
