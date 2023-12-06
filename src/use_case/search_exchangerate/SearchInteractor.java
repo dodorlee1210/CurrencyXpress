@@ -1,35 +1,49 @@
 package use_case.search_exchangerate;
 
+import data_access.FileUserDataAccessObject;
+
 public class SearchInteractor implements SearchInputBoundary {
 
-    final SearchDataAccessInterface dataAccessObject;
+    final SearchDataAccessInterface searchDataAccessObject;
 
     final SearchOutputBoundary searchPresenter;
 
+    FileUserDataAccessObject dataAccessObject;
+    String exchangeResult;
 
-    public SearchInteractor(SearchDataAccessInterface dataAccessObject, SearchOutputBoundary searchOutputBoundary) {
-        this.dataAccessObject = dataAccessObject;
+
+    public SearchInteractor(SearchDataAccessInterface searchDataAccessObject, SearchOutputBoundary searchOutputBoundary,
+                            FileUserDataAccessObject dataAccessObject) {
+        this.searchDataAccessObject = searchDataAccessObject;
         this.searchPresenter = searchOutputBoundary;
+        this.dataAccessObject = dataAccessObject;
     }
 
-    public void execute(SearchInputData searchInputData) {
+    public String execute(SearchInputData searchInputData) {
         String date = searchInputData.getDate();
         String baseCurrency = searchInputData.getBaseCurrency();
         String symbols = searchInputData.getSymbols();
 
-        if (!dataAccessObject.existsByCode(date)) {
+        if (!searchDataAccessObject.existsByCode(date)) {
             searchPresenter.prepareFailView(date + ": This date is not a valid date.");
-        } else if (!dataAccessObject.existsByCode(baseCurrency)) {
+            exchangeResult = "Error:" + " This date is not a valid date.";
+        } else if (!searchDataAccessObject.existsByCode(baseCurrency)) {
             searchPresenter.prepareFailView(baseCurrency + ": Currency Code is not valid as a base currency.");
+            exchangeResult = "Error:" + " Currency code is not valid as a base currency.";
         } else {
             if (baseCurrency.equals(symbols)){
                 searchPresenter.prepareFailView("Exchange does not happen for same currency codes.");
+                exchangeResult = "Error:" + " Exchange does not happen for same currency codes.";
             } else {
-                String[] currency = dataAccessObject.get(symbols).split(":");
-                searchPresenter.prepareSuccessView(new SearchOutputData(currency[0],currency[1],false));
+                String[] currency = searchDataAccessObject.get(symbols).split(":");
+                SearchOutputData searchOutputData = new SearchOutputData(currency[0],currency[1],false);
+                searchPresenter.prepareSuccessView(searchOutputData);
+
+                exchangeResult = searchOutputData.get_afterSymbols() + "\n"
+                        + searchOutputData.get_afterCurrency();
             }
 
         }
-
+        return exchangeResult;
     }
 }

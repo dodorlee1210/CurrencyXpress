@@ -88,8 +88,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         );
 
         logIn.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
+                    @Override
+
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(logIn)) {
                             SignupState currentState = signupViewModel.getState();

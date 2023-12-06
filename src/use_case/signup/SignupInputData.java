@@ -10,6 +10,7 @@ public class SignupInputData {
     private Bank bank;
     private double initialBalance;
     private String accountHolder;
+    private String pass;
 
     private String pass;
 
@@ -48,7 +49,8 @@ public class SignupInputData {
         return accountHolder;
     }
 
-    public String getPass() {
+    public String getPass(){
+
         return pass;
     }
 }

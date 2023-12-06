@@ -11,7 +11,7 @@ public class SearchInputData {
         this.baseCurrency = "to be input by user";
         this.symbols = "to be input by user";
     }
-    String getDate() {
+    public String getDate() {
         return date;
     }
 

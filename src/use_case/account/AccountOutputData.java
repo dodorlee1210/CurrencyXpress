@@ -16,7 +16,8 @@ public class AccountOutputData {
         return username;
     }
 
-    public String getMethod() {
+    public String getMethod(){
+
         return method;
     }
 }
