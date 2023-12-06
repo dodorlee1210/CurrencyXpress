@@ -6,11 +6,14 @@ public class ConvertOutputData {
     private String currencyA;
     private double leftAmount;
     private boolean useCaseFailed;
+    private String[][] currencies;
 
-    public ConvertOutputData(String symbolA, String currencyA, double leftAmount, boolean useCaseFailed) {
+    public ConvertOutputData(String symbolA, String currencyA, double leftAmount,
+                             String[][] currencies, boolean useCaseFailed) {
         this.symbolA = symbolA;
         this.currencyA = currencyA;
         this.leftAmount = leftAmount;
+        this.currencies = currencies;
         this.useCaseFailed = useCaseFailed;
     }
 
@@ -20,5 +23,9 @@ public class ConvertOutputData {
 
     public double getLeftAmount() {
         return leftAmount;
+    }
+
+    public String[][] getCurrencies() {
+        return currencies;
     }
 }

@@ -6,7 +6,9 @@ public class AccountInputData {
     final private String username;
     private String method;
 
+
     public AccountInputData(String username, String method) {
+
 
         this.username = username;
         this.method = method;
@@ -15,7 +17,9 @@ public class AccountInputData {
     String getUsername() {
         return username;
     }
+
     public String getMethod(){
+
         return method;
     }
 }

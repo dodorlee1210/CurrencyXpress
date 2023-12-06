@@ -2,7 +2,11 @@ package use_case.convert;
 
 import data_access.FileUserDataAccessObject;
 import entity.Account;
+import entity.ExchangeHistory;
 import entity.User;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ConvertInteractor implements ConvertInputBoundary {
 
@@ -24,8 +28,13 @@ public class ConvertInteractor implements ConvertInputBoundary {
         String symbolB = convertInputData.getSymbolB();
         String currencyB = convertInputData.getCurrencyB();
         String symbolA = convertInputData.getSymbolA();
+        User user = dataAccessObject.get(convertInputData.getUsername());
+        Account account = user.getUserAccount();
 
-        if (!convertDataAccessInterface.existsByCode(symbolB)) {
+        if (symbolA.equals("HOME")) {
+            convertPresenter.prepareSuccessView(new ConvertOutputData("HOME",
+                    "", account.getBalance(), account.getAllForeignCurrencies(), false));
+        } else if (!convertDataAccessInterface.existsByCode(symbolB)) {
             convertPresenter.prepareFailView(symbolB + ": Currency Code does not exist (B).");
             exchangeResult = "Error: " + "Currency Code does not exist (B).";
         } else if (!currencyB.matches("\\d+(\\.\\d+)?")) {
@@ -40,26 +49,40 @@ public class ConvertInteractor implements ConvertInputBoundary {
                 exchangeResult = "Error: " + "Exchange does not happen for same currency codes.";
             } else {
                 String[] currency = convertDataAccessInterface.get(symbolA).split(":");
-                User user = dataAccessObject.get(convertInputData.getUsername());
-                Account account = user.getUserAccount();
                 double serviceFees = account.getBank().getExchangeServiceFee();
                 String exchangedAmount = convertDataAccessInterface.calculateExchange(currencyB, currency[1], serviceFees);
                 double leftover = account.getBalance() - Double.parseDouble(currencyB);
+//                String[][] result = {{symbolA, exchangedAmount}};
+
                 ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], exchangedAmount,
-                        leftover,false);
+                        leftover, account.getAllForeignCurrencies(), false);
                 convertPresenter.prepareSuccessView(convertOutputData);
 
-                // Probably need an update method
-//                User changedUser = userFactory.create(user.getUsername(), user.getPassword(),
-//                        account.getBank(), leftover, account.getAccountHolder());
-//                dataAccessObject.save(changedUser);
+                double newAccountBalance = convertOutputData.getLeftAmount();
+                // round down the double value up to 2 decimal place
+                //   ex: 1.246   = 1.24
+                //   ex: 3.21194 = 3.21
+                double exchangedValue = BigDecimal.valueOf(Double.parseDouble(exchangedAmount)).setScale(2, RoundingMode.HALF_DOWN).doubleValue();
 
-                exchangeResult = convertOutputData.getSymbolA() + "\n" +
-                         convertOutputData.getCurrencyA() + "\n" +
-                        "Balance: " + convertOutputData.getLeftAmount();
+                exchangeResult = "Convert " + symbolB + " to " + symbolA + "\n" +
+                        exchangedValue + "\n" + "Balance: " + newAccountBalance;
+
+                updateUserAccount(account, newAccountBalance, symbolA, exchangedValue);
+                addExchangeHistory(account, symbolB, symbolA, exchangedValue, serviceFees);
             }
         }
 
         return exchangeResult;
+    }
+
+    private void updateUserAccount(Account userAccount, double newAccountBalance,
+                                   String newCurrencyCode, double newCurrencyBalance) {
+        userAccount.setBalance(newAccountBalance);
+        userAccount.setForeignCurrency(newCurrencyCode, newCurrencyBalance);
+    }
+
+    private void addExchangeHistory(Account userAccount, String currencyCode,
+                                    String newCurrencyCode, double exchangedValue, double serviceFee) {
+        userAccount.addExchangeHistory(new ExchangeHistory(currencyCode, newCurrencyCode, exchangedValue, serviceFee));
     }
 }

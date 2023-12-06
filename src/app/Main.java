@@ -22,7 +22,7 @@ public class Main {
         // various cards, and the layout, and stitch them together.
 
         // The main application window.
-        JFrame application = new JFrame("Login Example");
+        JFrame application = new JFrame("CurrencyXpress");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -69,13 +69,16 @@ public class Main {
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, accountViewModel, userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel,
+                accountViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
+
         AccountView accountView = AccountUseCaseFactory.create(viewManagerModel, accountViewModel, convertViewModel, loginViewModel, searchViewModel);
+
         views.add(accountView, accountView.viewName);
 
-        ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel,
+        ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, accountViewModel,
                 convertDataAccessObject, userDataAccessObject);
         views.add(convertView, convertView.viewName);
 

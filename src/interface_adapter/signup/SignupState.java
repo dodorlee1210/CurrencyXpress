@@ -33,9 +33,11 @@ public class SignupState {
     // Because of the previous copy constructor, the default constructor must be explicit.
     public SignupState() {
     }
+
     public String getPass() {
         return pass;
     }
+
     public String getUsername() {
         return username;
     }
@@ -109,6 +111,10 @@ public class SignupState {
 
     public void setInitialBalance(String initialBalance) {
         this.initialBalance = initialBalance;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     @Override

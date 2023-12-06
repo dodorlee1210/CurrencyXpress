@@ -3,6 +3,11 @@ package interface_adapter.account;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.convert.ConvertState;
 import interface_adapter.convert.ConvertViewModel;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
+import use_case.account.AccountInteractor;
 import use_case.account.AccountOutputBoundary;
 import use_case.account.AccountOutputData;
 import interface_adapter.login.LoginState;
@@ -17,13 +22,16 @@ public class AccountPresenter implements AccountOutputBoundary {
     private LoginViewModel loginViewModel;
     private  SearchViewModel searchViewModel;
     private ViewManagerModel viewManagerModel;
+    private LoginViewModel loginViewModel;
 
     public AccountPresenter(ViewManagerModel viewManagerModel, AccountViewModel accountViewModel,
-                            ConvertViewModel convertViewModel, LoginViewModel loginViewModel, SearchViewModel searchViewModel) {
+               ConvertViewModel convertViewModel, LoginViewModel loginViewModel, SearchViewModel searchViewModel) {
+
         this.viewManagerModel = viewManagerModel;
         this.accountViewModel = accountViewModel;
         this.convertViewModel = convertViewModel;
         this.loginViewModel = loginViewModel;
+
         this.searchViewModel = searchViewModel;
     }
 
@@ -53,5 +61,6 @@ public class AccountPresenter implements AccountOutputBoundary {
 
 
     }
+
 
 }
