@@ -5,10 +5,12 @@ public class AccountInputData {
 
     final private String username;
     private String method;
+    private String bank;
 
-    public AccountInputData(String username, String method) {
+    public AccountInputData(String username, String method, String bank) {
         this.username = username;
         this.method = method;
+        this.bank = bank;
     }
 
     String getUsername() {
@@ -17,5 +19,9 @@ public class AccountInputData {
 
     public String getMethod() {
         return method;
+    }
+
+    public String getBank() {
+        return bank;
     }
 }
