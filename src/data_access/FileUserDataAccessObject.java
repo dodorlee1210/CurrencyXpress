@@ -31,8 +31,9 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         headers.put("username", 0);
         headers.put("password", 1);
         headers.put("Bank Type", 2);
-        headers.put("Initial Balance", 3);
+        headers.put("Initial Balance(EUR)", 3);
         headers.put("Account Holder", 4);
+        headers.put("Foreign Currencies...", 5);
 
         if (csvFile.length() == 0) {
             save();
@@ -42,7 +43,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 String header = reader.readLine();
 
                 // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("username,password,Bank Type,Initial Balance,Account Holder");
+                assert header.equals("username,password,Bank Type,Initial Balance(EUR),Account Holder,Foreign Currencies...");
 
                 String row;
 
@@ -64,6 +65,15 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     }
 
                     User user = userFactory.create(username, password, getBank(bankType), initialBalance, accountHolder);
+
+                    if (col.length > 5) {   // user has initial foreign currency balance
+                        Account userAccount = user.getUserAccount();
+
+                        for (int i = 5; i < col.length; i = i + 2) {
+                            userAccount.setForeignCurrency(col[i], Double.parseDouble(col[i + 1]));
+                        }
+                    }
+
                     accounts.put(username, user);
                 }
             }
@@ -87,7 +97,12 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     @Override
     public void save(User user) {
-        accounts.put(user.getUsername(), user);
+        String username = user.getUsername();
+
+        if (!accounts.containsKey(username)) {   // add new user
+            accounts.put(username, user);
+        }
+
         this.save();
     }
 
@@ -106,10 +121,23 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             for (User user : accounts.values()) {
                 // Bank Type,Initial Balance,Account Holder
                 Account userAccount = user.getUserAccount();
-                String line = String.format("%s,%s,%s,%s,%s",
+
+                // if the user has a foreign currency and have to perform String '+' operation repeatedly,
+                // the StringBuilder performance has an absolute advantage rather than just using
+                // '+' operation in the loop
+                StringBuilder sb = new StringBuilder(String.format("%s,%s,%s,%s,%s",
                         user.getUsername(), user.getPassword(), userAccount.getBankName(),
-                        userAccount.getBalance(), userAccount.getAccountHolder());
-                writer.write(line);
+                        userAccount.getBalance(), userAccount.getAccountHolder()));
+
+                if (userAccount.hasForeignCurrency()) {    // user has at least 1 foreign currency
+                    String[][] allForeignCurrency = userAccount.getAllForeignCurrencies();
+
+                    for (String[] foreignCurrency : allForeignCurrency) {
+                        sb.append(String.format(",%s,%s", foreignCurrency[0], foreignCurrency[1]));
+                    }
+                }
+
+                writer.write(sb.toString());
                 writer.newLine();
             }
 
@@ -145,3 +173,4 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     }
 
 }
+
