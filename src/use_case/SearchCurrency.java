@@ -49,7 +49,7 @@ public class SearchCurrency implements SearchDataAccessInterface{
             String[] output;
             output = response.toString().split(",");
             this.currenciesSplit = output;
-            System.out.println(response);
+//            System.out.println(response);
             this.currencies = response.toString();
 
 

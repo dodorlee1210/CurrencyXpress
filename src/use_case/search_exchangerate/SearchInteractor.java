@@ -61,9 +61,6 @@ public class SearchInteractor implements SearchInputBoundary {
 //        }
 
 
-
-
-
         if (symbols.equals("HOME")) {
             searchPresenter.prepareSuccessView(new SearchOutputData("HOME",
                     "", false));
@@ -91,8 +88,7 @@ public class SearchInteractor implements SearchInputBoundary {
                 SearchOutputData searchOutputData = new SearchOutputData(currency[0],currency[1],false);
                 searchPresenter.prepareSuccessView(searchOutputData);
 
-                exchangeResult = searchOutputData.get_afterSymbols() + "\n"
-                        + searchOutputData.get_afterCurrency();
+                exchangeResult = symbols + "\n" + searchOutputData.get_afterCurrency();
             }
 
         }

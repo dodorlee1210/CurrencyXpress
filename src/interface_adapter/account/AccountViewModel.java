@@ -11,7 +11,7 @@ public class AccountViewModel extends ViewModel {
 
     public static final String LOGOUT_BUTTON_LABEL = "Log out";
     public static final String EXCHANGE_BUTTON_LABEL = "Exchange";
-    public static final String SEARCH_BUTTON_LABEL = "Search";
+    public static final String SEARCH_BUTTON_LABEL = "Search Rate";
     private String loggedInUser;
 
     public AccountViewModel() {

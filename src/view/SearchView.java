@@ -40,11 +40,11 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel dateInfo = new LabelTextPanel(
-                new JLabel("Enter Date"), dateInputField);
+                new JLabel("Date to Search"), dateInputField);
         LabelTextPanel baseCurrencyInfo = new LabelTextPanel(
-                new JLabel("Enter Base Currency Code"), baseCurrencyInputField);
+                new JLabel("Base Currency Code"), baseCurrencyInputField);
         LabelTextPanel symbolsInfo = new LabelTextPanel(
-                new JLabel("Enter Symbols"), symbolsInputField);
+                new JLabel("Currency Code to Receive"), symbolsInputField);
 
         JPanel buttons = new JPanel();
         search = new JButton(SearchViewModel.Search_BUTTON_LABEL);
@@ -167,9 +167,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         dateInputField.setText(state.getDate());
         baseCurrencyInputField.setText(state.getBaseCurrency());
         symbolsInputField.setText(state.getSymbols());
-
-        // Additional fields can be set here based on your requirements
     }
+
     public void displayPopUpWindow(String msg) {
         JOptionPane.showMessageDialog(this,
                 msg, "Search Result", JOptionPane.INFORMATION_MESSAGE);

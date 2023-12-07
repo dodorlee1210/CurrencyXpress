@@ -62,7 +62,8 @@ public class ConvertInteractor implements ConvertInputBoundary {
                 // round down the double value up to 2 decimal place
                 //   ex: 1.246   = 1.24
                 //   ex: 3.21194 = 3.21
-                double exchangedValue = BigDecimal.valueOf(Double.parseDouble(exchangedAmount)).setScale(2, RoundingMode.HALF_DOWN).doubleValue();
+                double exchangedValue = BigDecimal.valueOf(Double.parseDouble(exchangedAmount)).setScale(2,
+                        RoundingMode.HALF_DOWN).doubleValue();
 
                 exchangeResult = "Convert " + symbolB + " to " + symbolA + "\n" +
                         "Exchanged: " + exchangedValue + " " + symbolA + "\n" + "Balance: " + newBalance;
