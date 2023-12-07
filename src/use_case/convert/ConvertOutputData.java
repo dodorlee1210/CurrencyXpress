@@ -28,4 +28,7 @@ public class ConvertOutputData {
     public String[][] getCurrencies() {
         return currencies;
     }
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
+    }
 }

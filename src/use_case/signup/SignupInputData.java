@@ -24,11 +24,11 @@ public class SignupInputData {
         this.pass = pass;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    String getPassword() {
+    public String getPassword() {
         return password;
     }
 

@@ -14,4 +14,7 @@ public class SearchOutputData {
     public String get_afterSymbols() {return afterSymbols;}
 
     public String get_afterCurrency() {return afterCurrency;}
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
+    }
 }
