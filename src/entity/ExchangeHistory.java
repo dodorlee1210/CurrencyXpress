@@ -1,11 +1,13 @@
 package entity;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 public class ExchangeHistory {
     private final String sourceCurrency;
     private final String targetCurrency;
-    private final double exchangedAmount;
+    private double exchangedAmount;
     private final double exchangeRate;
     private final LocalDateTime exchangeTime;
 
@@ -58,7 +60,9 @@ public class ExchangeHistory {
      * @return string representation of this object
      */
     public String toString() {
-        return String.format("Source Currency: %s, Target Currency: %s, Exchanged Amount: %.2f, Exchange Rate: %.4f, Exchange Time: %s",
+        exchangedAmount = BigDecimal.valueOf(Double.parseDouble(String.valueOf(exchangedAmount))).setScale(2, RoundingMode.HALF_DOWN).doubleValue();
+
+        return String.format("Source Currency: %s, Target Currency: %s, Exchanged Amount: %f, Exchange Rate: %.4f, Exchange Time: %s",
                 sourceCurrency, targetCurrency, exchangedAmount, exchangeRate, exchangeTime);
     }
 }
