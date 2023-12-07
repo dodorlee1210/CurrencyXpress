@@ -6,6 +6,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.account.AccountViewModel;
 import interface_adapter.convert.ConvertViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.search_exchangerate.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import use_case.convert.CurrencyConverter;
 import view.*;
@@ -40,6 +41,7 @@ public class Main {
         AccountViewModel accountViewModel = new AccountViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         ConvertViewModel convertViewModel = new ConvertViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         CurrencyConverter convertDataAccessObject;
@@ -63,7 +65,8 @@ public class Main {
                 accountViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        AccountView accountView = AccountUseCaseFactory.create(viewManagerModel, accountViewModel, convertViewModel, loginViewModel);
+        AccountView accountView = AccountUseCaseFactory.create(viewManagerModel, accountViewModel, convertViewModel,
+                loginViewModel, searchViewModel);
         views.add(accountView, accountView.viewName);
 
         ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, accountViewModel,

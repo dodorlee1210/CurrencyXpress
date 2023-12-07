@@ -5,8 +5,6 @@ import interface_adapter.convert.ConvertState;
 import interface_adapter.convert.ConvertViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.search_exchangerate.SearchState;
-import interface_adapter.search_exchangerate.SearchViewModel;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
 import use_case.account.AccountInteractor;
@@ -18,15 +16,13 @@ public class AccountPresenter implements AccountOutputBoundary {
     private final ConvertViewModel convertViewModel;
     private ViewManagerModel viewManagerModel;
     private LoginViewModel loginViewModel;
-    private SearchViewModel searchViewModel;
 
     public AccountPresenter(ViewManagerModel viewManagerModel, AccountViewModel accountViewModel,
-                            ConvertViewModel convertViewModel, LoginViewModel loginViewModel, SearchViewModel searchViewModel) {
+                            ConvertViewModel convertViewModel, LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.accountViewModel = accountViewModel;
         this.convertViewModel = convertViewModel;
         this.loginViewModel = loginViewModel;
-        this.searchViewModel = searchViewModel;
     }
 
     @Override
@@ -50,13 +46,6 @@ public class AccountPresenter implements AccountOutputBoundary {
             this.convertViewModel.firePropertyChanged();
 
             viewManagerModel.setActiveView(convertViewModel.getViewName());
-            viewManagerModel.firePropertyChanged();
-        } else if (response.getMethod().equals("search")) {
-            SearchState searchState = searchViewModel.getState();
-            searchState.setUsername(response.getUsername());
-            this.searchViewModel.setState(searchState);
-            this.searchViewModel.firePropertyChanged();
-            viewManagerModel.setActiveView(searchViewModel.getViewName());
             viewManagerModel.firePropertyChanged();
         }
     }
