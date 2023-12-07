@@ -1,30 +1,36 @@
 package use_case;
 import use_case.search_exchangerate.SearchDataAccessInterface;
+import use_case.search_exchangerate.SearchInputData;
+import use_case.search_exchangerate.SearchInteractor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class SearchCurrency implements SearchDataAccessInterface {
+
+public class SearchCurrency implements SearchDataAccessInterface{
     String[] currenciesSplit;
     String currencies;
-    public SearchCurrency() throws IOException {
+    public SearchCurrency(SearchInputData searchInputData) throws IOException {
         String apiKey = "691b8b16ea3f2b197ffc3beba516d080";
 
-
+        String apiUrl = "http://api.exchangeratesapi.io/v1/";
         try {
-            String apiUrl = "http://api.exchangeratesapi.io/v1/";
 
             // Assume that base and symbols are retrieved from the front end
-            String date = "2023-01-01"; // Replace with the actual date
-            String baseCurrency = "EUR"; // Replace with the actual base currency
-            String symbols = "USD"; // Replace with the actual symbols
+            String date = searchInputData.getDate();// Replace with the actual date
+
+            String baseCurrency = searchInputData.getBaseCurrency(); // Replace with the actual base currency
+            String symbols = searchInputData.getSymbols(); // Replace with the actual symbols
 
             // Build the URL with retrieved parameters
             String url = apiUrl + date + "?access_key=" + apiKey;
-
+            System.out.println(url);
             URL exchangeRateUrl = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) exchangeRateUrl.openConnection();
             connection.setRequestMethod("GET");
@@ -43,6 +49,7 @@ public class SearchCurrency implements SearchDataAccessInterface {
             String[] output;
             output = response.toString().split(",");
             this.currenciesSplit = output;
+            System.out.println(response);
             this.currencies = response.toString();
 
 
@@ -57,6 +64,7 @@ public class SearchCurrency implements SearchDataAccessInterface {
         return currencies.contains(identifier);
     }
 
+
     @Override
     public String get(String code) {
         for (String s : currenciesSplit) {
@@ -65,6 +73,26 @@ public class SearchCurrency implements SearchDataAccessInterface {
             }
         }
         return code;
+    }
+
+    @Override
+    public boolean checkDate(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false); // Make sure the date is strictly validated
+
+        try {
+            // Parse the input date
+            Date parsedDate = dateFormat.parse(date);
+
+            // Check if the parsed date is within the allowed range
+            Date lowerBound = dateFormat.parse("1999-01-01");
+            Date upperBound = new Date(); // Current date
+
+            return !parsedDate.before(lowerBound) && !parsedDate.after(upperBound);
+        } catch (ParseException e) {
+            // The input date is not in the expected format
+            return false;
+        }
     }
 }
 
