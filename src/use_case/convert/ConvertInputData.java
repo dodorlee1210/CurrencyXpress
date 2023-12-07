@@ -13,15 +13,15 @@ public class ConvertInputData {
         this.username = username;
     }
 
-    String getSymbolB() {
+    public String getSymbolB() {
         return symbolB;
     }
 
-    String getCurrencyB() {
+    public String getCurrencyB() {
         return currencyB;
     }
 
-    String getSymbolA() {
+    public String getSymbolA() {
         return symbolA;
     }
 

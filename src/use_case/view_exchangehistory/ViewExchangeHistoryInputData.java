@@ -7,7 +7,7 @@ public class ViewExchangeHistoryInputData {
         this.accountHolder = accountHolder;
     }
 
-    String getAccountHolder() {
+    public String getAccountHolder() {
         return accountHolder;
     }
 }

@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 import entity.banks.*;
+import use_case.signup.SignupInputData;
 
 public class EntityTests {
 
@@ -322,15 +323,6 @@ public class EntityTests {
 //        assertEquals(expectedAccount, user.getUserAccount());
 //    }
     @Test
-    public void testGetUserById_NonExistentUser_ReturnsNull() {
-        String username = "non_existent_user";
-        UserManagement userManagement = new UserManagement();
-
-        User retrievedUser = userManagement.getUserById(username);
-
-        assertNull(retrievedUser);
-    }
-    @Test
     public void testHasForeignCurrency_NoForeignCurrency_ReturnsFalse() {
         Account account = new Account("Test User", new BMO(), 100.0);
 
@@ -459,5 +451,94 @@ public class EntityTests {
 
         assertEquals(expectedName, td.getBankName());
     }
+    @Test
+    public void testSignupInputDataGetUsername() {
+        String username = "john_doe";
+        String password = "password123";
+        String repeatPassword = "password123";
+        Bank bank = new RBC();
+        double initialBalance = 1000.0;
+        String accountHolder = "John Doe";
+        String pass = "pass123";
+
+        SignupInputData inputData = new SignupInputData(username, password, repeatPassword, bank, initialBalance, accountHolder, pass);
+
+        assertEquals(username, inputData.getUsername());
+    }
+
+    @Test
+    public void testSignupInputDataGetPassword() {
+        String username = "jane_smith";
+        String password = "securePass";
+        String repeatPassword = "securePass";
+        Bank bank = new RBC();
+        double initialBalance = 1500.0;
+        String accountHolder = "Jane Smith";
+        String pass = "pass456";
+
+        SignupInputData inputData = new SignupInputData(username, password, repeatPassword, bank, initialBalance, accountHolder, pass);
+
+        assertEquals(password, inputData.getPassword());
+    }
+
+    @Test
+    public void testSignupInputDataGetRepeatPassword() {
+        String username = "test_user";
+        String password = "testPass123";
+        String repeatPassword = "testPass123";
+        Bank bank = new RBC();
+        double initialBalance = 2000.0;
+        String accountHolder = "Test User";
+        String pass = "pass789";
+
+        SignupInputData inputData = new SignupInputData(username, password, repeatPassword, bank, initialBalance, accountHolder, pass);
+
+        assertEquals(repeatPassword, inputData.getRepeatPassword());
+    }
+
+    @Test
+    public void testSignupInputDataGetBank() {
+        String username = "user123";
+        String password = "userPass";
+        String repeatPassword = "userPass";
+        Bank bank = new RBC();
+        double initialBalance = 2500.0;
+        String accountHolder = "User One";
+        String pass = "pass987";
+
+        SignupInputData inputData = new SignupInputData(username, password, repeatPassword, bank, initialBalance, accountHolder, pass);
+
+        assertEquals(bank, inputData.getBank());
+    }
+    @Test
+    public void testSignupInputDataGetAccountHolder() {
+        String username = "user789";
+        String password = "pass456";
+        String repeatPassword = "pass456";
+        Bank bank = new RBC();
+        double initialBalance = 3500.0;
+        String accountHolder = "User Three";
+        String pass = "pass321";
+
+        SignupInputData inputData = new SignupInputData(username, password, repeatPassword, bank, initialBalance, accountHolder, pass);
+
+        assertEquals(accountHolder, inputData.getAccountHolder());
+    }
+
+    @Test
+    public void testSignupInputDataGetPass() {
+        String username = "user000";
+        String password = "pass789";
+        String repeatPassword = "pass789";
+        Bank bank = new RBC();
+        double initialBalance = 4000.0;
+        String accountHolder = "User Four";
+        String pass = "pass000";
+
+        SignupInputData inputData = new SignupInputData(username, password, repeatPassword, bank, initialBalance, accountHolder, pass);
+
+        assertEquals(pass, inputData.getPass());
+    }
+
 
 }

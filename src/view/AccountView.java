@@ -4,7 +4,6 @@ import interface_adapter.account.AccountController;
 import interface_adapter.account.AccountState;
 import interface_adapter.account.AccountViewModel;
 import interface_adapter.view_exchangehistory.ViewExchangeHistoryViewModel;
-import use_case.view_exchangehistory.ViewExchangeHistory;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
