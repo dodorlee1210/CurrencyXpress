@@ -14,16 +14,28 @@ public class CommonUser implements User {
         this.userAccount = new Account(accountHolder, bank, initialBalance);
     }
 
+    /**
+     * Get this user's username
+     * @return username(user ID) of this user
+     */
     @Override
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Get this user's password
+     * @return the password for this user account
+     */
     @Override
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Get user's account
+     * @return the account owned by this user
+     */
     public Account getUserAccount() {
         return userAccount;
     }
