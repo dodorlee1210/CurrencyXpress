@@ -59,12 +59,22 @@ public class SearchCurrency implements SearchDataAccessInterface{
     }
 
 
+    /**
+     *
+     * @param identifier represents the currency code
+     * @return true if the currencies contains the currency code, false otherwise
+     */
     @Override
     public boolean existsByCode(String identifier) {
         return currencies.contains(identifier);
     }
 
 
+    /**
+     *
+     * @param code the currency code
+     * @return return the specific parts (only required part) from the API result
+     */
     @Override
     public String get(String code) {
         for (String s : currenciesSplit) {
