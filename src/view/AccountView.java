@@ -71,7 +71,8 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
                         if (evt.getSource().equals(exchange)) {
                             AccountState currentState = accountViewModel.getState();
                             currentState.setMethod("exchange");
-                            accountController.execute(currentState.getUsername(), currentState.getMethod());
+                            accountController.execute(currentState.getUsername(),
+                                    currentState.getMethod(), currentState.getBank());
                         }
                     }
                 }
@@ -83,7 +84,9 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
                         if (evt.getSource().equals(logOut)) {
                             AccountState currentState = accountViewModel.getState();
                             currentState.setMethod("logout");
-                            accountController.execute(currentState.getUsername(), currentState.getMethod());
+                            accountController.execute(currentState.getUsername(),
+                                    currentState.getMethod(),
+                                    currentState.getBank());
                         }
                     }
                 }

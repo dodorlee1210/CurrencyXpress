@@ -3,7 +3,6 @@ package view;
 import interface_adapter.convert.ConvertController;
 import interface_adapter.convert.ConvertState;
 import interface_adapter.convert.ConvertViewModel;
-import use_case.convert.CurrencyConverter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +24,6 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
     private final JLabel currencyBErrorField = new JLabel();
     final JTextField symbolAInputField = new JTextField(15);
     private final JLabel symbolAErrorField = new JLabel();
-    private final JLabel exchangeRateLabel = new JLabel("Exchange Rate: ");
-    private final JLabel remainingMoneyLabel = new JLabel("Remaining Money: ");
     private final JLabel exchangeFeeLabel = new JLabel("Exchange Fee: ");
 
     final JButton convert;
@@ -143,17 +140,21 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
             }
         });
 
+        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        titlePanel.add(title);
 
-        this.add(title);
+        JPanel feePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        feePanel.add(exchangeFeeLabel);
+
+        this.add(titlePanel);
         this.add(symbolBInfo);
         this.add(symbolBErrorField);
         this.add(currencyBInfo);
         this.add(currencyBErrorField);
         this.add(symbolAInfo);
         this.add(symbolAErrorField);
-        this.add(exchangeRateLabel);
-        this.add(remainingMoneyLabel);
-        this.add(exchangeFeeLabel);
+        this.add(feePanel);
+        this.add(Box.createVerticalGlue());
         this.add(buttons);
     }
 
@@ -167,8 +168,8 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ConvertState state = (ConvertState) evt.getNewValue();
-//        updateLabels(state);
         setFields(state);
+        exchangeFeeLabel.setText("Exchange Fee: " + state.getExchangeBankFee());
     }
 
     private void setFields(ConvertState state) {
@@ -176,17 +177,6 @@ public class ConvertView extends JPanel implements ActionListener, PropertyChang
         currencyBInputField.setText(state.getCurrencyB());
         symbolAInputField.setText(state.getSymbolA());
     }
-
-//    private void updateLabels(ConvertState state) {
-//        exchangeRateLabel.setText("Exchange Rate: " + state.getExchangeRate());
-//        remainingMoneyLabel.setText("Remaining Money: " + state.getRemainingMoney());
-//        exchangeFeeLabel.setText("Exchange Fee: " + state.getExchangeBankFee());
-//    }
-//        ConvertState currentState = convertViewModel.getState();
-//        if (!currentState.getSymbolB().isEmpty() && !currentState.getSymbolA().isEmpty()) {
-//        updateLabels(currentState);
-//    }
-
 
     public void displayPopUpWindow(String msg) {
         JOptionPane.showMessageDialog(this,

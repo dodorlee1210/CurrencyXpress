@@ -41,6 +41,7 @@ public class AccountPresenter implements AccountOutputBoundary {
             // Switch to convert page
             ConvertState convertState = convertViewModel.getState();
             convertState.setUsername(response.getUsername());
+            convertState.setExchangeBankFee(response.getBankFee());
             this.convertViewModel.setState(convertState);
             this.convertViewModel.firePropertyChanged();
 
