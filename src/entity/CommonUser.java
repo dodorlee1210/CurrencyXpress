@@ -36,6 +36,7 @@ public class CommonUser implements User {
      * Get user's account
      * @return the account owned by this user
      */
+    @Override
     public Account getUserAccount() {
         return userAccount;
     }
