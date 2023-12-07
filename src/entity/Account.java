@@ -21,40 +21,71 @@ public class Account {
     }
 
     // Getters and setters
+    /**
+     * Get the account's owner's name
+     * @return the account's owner's name
+     */
     public String getAccountHolder() {
         return accountHolder;
     }
 
+    /**
+     * Update this account's owner's name
+     * @param accountHolder new account owner's name
+     */
     public void setAccountHolder(String accountHolder) {
         this.accountHolder = accountHolder;
     }
 
+    /**
+     * @return  the balance of this account
+     */
     public double getBalance() {
         return balance;
     }
 
+    /**
+     * @param balance   update this account's balance to the given balance
+     */
     public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    // Add an exchange to the history
+    /**
+     * Add exchange history for this account
+     * @param history   New exchange history for this account
+     */
     public void addExchangeHistory(ExchangeHistory history) {
         exchangeHistories.add(history);
     }
 
-    // Get the exchange history
+    /**
+     * @return  All the exchange histories made by this account as a list
+     */
     public List<ExchangeHistory> getExchangeHistory() {
         return exchangeHistories;
     }
 
+    /**
+     * @return  The bank's name that owns this account
+     */
     public String getBankName() {
         return bank.getBankName();
     }
 
+    /**
+     * @return  The bank object that owns this account
+     */
     public Bank getBank() {
         return bank;
     }
 
+    /**
+     * Update the foreign currency in this account
+     *
+     * @param currencyCode  currency code that represents the foreign currency
+     * @param amount    the balance of specified foreign currency
+     */
     public void setForeignCurrency(String currencyCode, double amount) {
         if (foreignCurrency.containsKey(currencyCode)) {
             foreignCurrency.replace(currencyCode, foreignCurrency.get(currencyCode) + amount);
@@ -65,6 +96,12 @@ public class Account {
         }
     }
 
+    /**
+     * Return specified foreign currency's balance in this account
+     *
+     * @param currencyCode  Currency code that represents the foreign currency
+     * @return  Corresponding foreign currency balance to the given currency code
+     */
     public double getForeignCurrency(String currencyCode) {
         double balance = 0.0;
 
@@ -76,7 +113,7 @@ public class Account {
     }
 
     /**
-     * @return the list of all foreign currencies saved in this account in the format of
+     * @return the array list of all foreign currencies saved in this account in the format of
      *         [ ["currency code", "corresponding balance"], ... ]
      */
     public String[][] getAllForeignCurrencies() {
@@ -107,4 +144,5 @@ public class Account {
         return foreignCurrency.containsKey(currencyCode);
     }
 }
+
 
