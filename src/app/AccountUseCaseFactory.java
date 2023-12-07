@@ -6,7 +6,6 @@ import interface_adapter.account.AccountPresenter;
 import interface_adapter.account.AccountViewModel;
 import interface_adapter.convert.ConvertViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.search_exchangerate.SearchViewModel;
 import use_case.account.AccountInputBoundary;
 import use_case.account.AccountInteractor;
 import use_case.account.AccountOutputBoundary;
@@ -22,9 +21,9 @@ public class AccountUseCaseFactory {
     public static AccountView create(ViewManagerModel viewManagerModel,
                                      AccountViewModel accountViewModel,
                                      ConvertViewModel convertViewModel,
-                                     LoginViewModel loginViewModel, SearchViewModel searchViewModel) {
+                                     LoginViewModel loginViewModel) {
         try {
-            AccountController accountController = createAccountUseCase(viewManagerModel, accountViewModel, convertViewModel, loginViewModel, searchViewModel);
+            AccountController accountController = createAccountUseCase(viewManagerModel, accountViewModel, convertViewModel, loginViewModel);
             return new AccountView(accountViewModel, accountController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -36,10 +35,9 @@ public class AccountUseCaseFactory {
             ViewManagerModel viewManagerModel,
             AccountViewModel accountViewModel,
             ConvertViewModel convertViewModel,
-            LoginViewModel loginViewModel,
-            SearchViewModel searchViewModel) throws IOException {
+            LoginViewModel loginViewModel) throws IOException {
 
-        AccountOutputBoundary accountOutputBoundary = new AccountPresenter(viewManagerModel, accountViewModel, convertViewModel, loginViewModel, searchViewModel);
+        AccountOutputBoundary accountOutputBoundary = new AccountPresenter(viewManagerModel, accountViewModel, convertViewModel, loginViewModel);
 
         AccountInputBoundary accountInteractor = new AccountInteractor(accountOutputBoundary);
 
