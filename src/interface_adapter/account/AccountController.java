@@ -9,8 +9,8 @@ public class AccountController {
         this.accountInteractor = accountInteractor;
     }
 
-    public void execute(String username, String method) {
-        AccountInputData accountInputData = new AccountInputData(username, method);
+    public void execute(String username, String method, String bank) {
+        AccountInputData accountInputData = new AccountInputData(username, method, bank);
         accountInteractor.execute(accountInputData);
     }
 }

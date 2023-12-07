@@ -7,9 +7,7 @@ import interface_adapter.account.AccountViewModel;
 import interface_adapter.convert.ConvertViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.search_exchangerate.SearchViewModel;
 import use_case.convert.CurrencyConverter;
-import use_case.SearchCurrency;
 import view.*;
 
 import javax.swing.*;
@@ -35,18 +33,16 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        // The data for the views, such as username and password, are in the ViewModels.
+        // The data for the views are in the ViewModels.
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will be observed by the Views.
         LoginViewModel loginViewModel = new LoginViewModel();
         AccountViewModel accountViewModel = new AccountViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         ConvertViewModel convertViewModel = new ConvertViewModel();
-        SearchViewModel searchViewModel = new SearchViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         CurrencyConverter convertDataAccessObject;
-        SearchCurrency searchDataAccessObject;
 
         try {
             userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
@@ -60,12 +56,6 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        try {
-            searchDataAccessObject = new SearchCurrency();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
@@ -73,17 +63,12 @@ public class Main {
                 accountViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-
-        AccountView accountView = AccountUseCaseFactory.create(viewManagerModel, accountViewModel, convertViewModel, loginViewModel, searchViewModel);
-
+        AccountView accountView = AccountUseCaseFactory.create(viewManagerModel, accountViewModel, convertViewModel, loginViewModel);
         views.add(accountView, accountView.viewName);
 
         ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, accountViewModel,
                 convertDataAccessObject, userDataAccessObject);
         views.add(convertView, convertView.viewName);
-
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, searchDataAccessObject, userDataAccessObject);
-        views.add(searchView, searchView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

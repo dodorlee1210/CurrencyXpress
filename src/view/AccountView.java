@@ -6,6 +6,7 @@ import interface_adapter.account.AccountState;
 import interface_adapter.account.AccountViewModel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     public final String viewName = "logged in";
     private final AccountViewModel accountViewModel;
     private ViewExchangeHistoryViewModel viewExchangeHistoryViewModel;
+    private final DefaultTableModel tableModel;
 
     JLabel username;
     JLabel balance;
@@ -29,8 +31,6 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
     final JButton exchange;
     final JButton viewExchangeHistory;
     private JTable otherCurrencies;
-
-    final JButton search;
 
     /**
      * A window with a title and a JButton.
@@ -52,22 +52,17 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
         JLabel bankInfo = new JLabel("Bank Selected: ");
         bank = new JLabel();
 
-//        DefaultTableModel tableModel = new DefaultTableModel();
-//        otherCurrencies = new JTable(tableModel);
-        String[] column = {"Currency Code","Amount"};
-        String[][] example = {{"???", "000"}};
-        otherCurrencies = new JTable(example, column);
-
+        String[] column = {"Currency Code", "Amount"};
+        String[][] example = {{"Currency Code", "Amount"}};
+        tableModel = new DefaultTableModel(example, column);
+        otherCurrencies = new JTable(tableModel);
 
         JPanel buttons = new JPanel();
         logOut = new JButton(accountViewModel.LOGOUT_BUTTON_LABEL);
         exchange = new JButton(accountViewModel.EXCHANGE_BUTTON_LABEL);
-        search = new JButton(accountViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(logOut);
         buttons.add(exchange);
-
-        buttons.add(search);
-
+        buttons.add(viewExchangeHistory);
 
         exchange.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -76,8 +71,8 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
                         if (evt.getSource().equals(exchange)) {
                             AccountState currentState = accountViewModel.getState();
                             currentState.setMethod("exchange");
-
-                            accountController.execute(currentState.getUsername(),currentState.getMethod());
+                            accountController.execute(currentState.getUsername(),
+                                    currentState.getMethod(), currentState.getBank());
                         }
                     }
                 }
@@ -85,32 +80,18 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
 
         logOut.addActionListener(
                 new ActionListener() {
-                    @Override
-
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(logOut)) {
                             AccountState currentState = accountViewModel.getState();
                             currentState.setMethod("logout");
-                            accountController.execute(currentState.getUsername(), currentState.getMethod());
-
+                            accountController.execute(currentState.getUsername(),
+                                    currentState.getMethod(),
+                                    currentState.getBank());
                         }
                     }
                 }
         );
-        search.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(search)) {
-                            AccountState currentState = accountViewModel.getState();
-                            currentState.setMethod("search");
-                            accountController.execute(currentState.getUsername(), currentState.getMethod());
 
-                        }
-                    }
-                }
-        );
-      
         viewExchangeHistory.addActionListener(this);
 
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -124,7 +105,9 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
         balancePanel.add(balanceInfo);
         balancePanel.add(balance);
 
-
+        JPanel bankPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bankPanel.add(bankInfo);
+        bankPanel.add(bank);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -153,8 +136,13 @@ public class AccountView extends JPanel implements ActionListener, PropertyChang
         username.setText(state.getUsername());
         balance.setText(state.getBalance() + " EUR");
         bank.setText(state.getBank());
-        String[] column = {"Currency Code","Amount"};
-        String[][] currencies = state.getCurrencies();
-        otherCurrencies = new JTable(currencies, column);
+
+        if (!(state.getCurrencies() == null)) {
+            tableModel.setRowCount(0);
+            String[][] currencies = state.getCurrencies();
+            for (String[] currency : currencies) {
+                tableModel.addRow(currency);
+            }
         }
     }
+}

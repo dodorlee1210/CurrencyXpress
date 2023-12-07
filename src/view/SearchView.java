@@ -27,8 +27,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final JLabel baseCurrencyErrorField = new JLabel();
     private final JLabel symbolsErrorField = new JLabel();
 
-    private final JButton search;
-    private final JButton home;
+    private final JButton searchButton;
+    private final JButton homeButton;
 
     public SearchView(SearchViewModel searchViewModel, SearchController searchController) {
         this.searchViewModel = searchViewModel;
@@ -46,28 +46,28 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 new JLabel("Enter Symbols"), symbolsInputField);
 
         JPanel buttons = new JPanel();
-        search = new JButton(SearchViewModel.Search_BUTTON_LABEL);
-        buttons.add(search);
-        home = new JButton(SearchViewModel.HOME_BUTTON_LABEL);
-        buttons.add(home);
+        searchButton = new JButton(SearchViewModel.Search_BUTTON_LABEL);
+        buttons.add(searchButton);
+        homeButton = new JButton(SearchViewModel.HOME_BUTTON_LABEL);
+        buttons.add(homeButton);
 
-        search.addActionListener(
+        searchButton.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(search)) {
+                        if (evt.getSource().equals(searchButton)) {
                             SearchState currentState = searchViewModel.getState();
-                            displayPopUpWindow(searchController.execute(
+                            searchController.execute(
                                     currentState.getDate(),
                                     currentState.getBaseCurrency(),
-                                    currentState.getSymbols())
+                                    currentState.getSymbols()
                             );
                         }
                     }
                 }
         );
 
-        home.addActionListener(this);
+        homeButton.addActionListener(this);
 
         dateInputField.addKeyListener(new KeyListener() {
             @Override
@@ -152,9 +152,5 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         symbolsInputField.setText(state.getSymbols());
 
         // Additional fields can be set here based on your requirements
-    }
-    public void displayPopUpWindow(String msg) {
-        JOptionPane.showMessageDialog(this,
-                msg, "Exchange Result", JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -10,10 +10,9 @@ public class SearchController {
     public SearchController(SearchInputBoundary searchUseCaseInteractor){
         this.searchUseCaseInteractor = searchUseCaseInteractor;
     }
-    public String execute(String date, String baseCurrency, String symbols){
+    public void execute(String date, String baseCurrency, String symbols){
         SearchInputData searchInputData = new SearchInputData(date, baseCurrency, symbols);
 
         searchUseCaseInteractor.execute(searchInputData);
-        return searchUseCaseInteractor.execute(searchInputData);
     }
 }

@@ -48,7 +48,4 @@ public class SearchState{
     public void setAfterSymbolsError(String afterSymbolsError) {this.afterSymbolsError = afterSymbolsError;}
     public void setAfterCurrency(String afterCurrency) {this.afterCurrency = afterCurrency;}
     public void setAfterCurrencyError(String afterCurrencyError) {this.afterCurrencyError = afterCurrencyError;}
-
-    public void setUsername(String username) {
-    }
 }
