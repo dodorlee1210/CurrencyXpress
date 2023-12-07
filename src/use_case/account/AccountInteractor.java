@@ -9,6 +9,11 @@ public class AccountInteractor implements AccountInputBoundary{
         this.accountPresenter = accountPresenter;
     }
 
+    /**
+     * Get the unique bank's exchange service fee.
+     * Then, create the account output data object to present it through the presenter
+     * @param accountInputData
+     */
     public void execute(AccountInputData accountInputData) {
         String bank = accountInputData.getBank();
         String fee = "NA";
