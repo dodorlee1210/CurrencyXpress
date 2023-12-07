@@ -13,14 +13,24 @@ public class AccountInputData {
         this.bank = bank;
     }
 
+    /**
+     *
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * @return the name of the button which represents the actions to be performed
+     */
     public String getMethod() {
         return method;
     }
 
+    /**
+     * @return the bank name
+     */
     public String getBank() {
         return bank;
     }
