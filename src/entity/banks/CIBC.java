@@ -9,11 +9,19 @@ public class CIBC implements Bank {
     private final double exchangeServiceFee = 0.018;
     private final HashMap<String, Account> accounts = new HashMap<>();
 
+    /**
+     * The CIBC bank's exchange service fee charge (%) represented as double value
+     * @return BMO's exchange service CIBC
+     */
     @Override
     public double getExchangeServiceFee() {
         return exchangeServiceFee;
     }
 
+    /**
+     * Get the bank name
+     * @return the bank name: CIBC
+     */
     @Override
     public String getBankName() {
         return bankName;
