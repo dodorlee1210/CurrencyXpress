@@ -266,6 +266,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SignupState state = (SignupState) evt.getNewValue();
+        usernameInputField.setText("");
+        passwordInputField.setText("");
+        repeatPasswordInputField.setText("");
+        accountHolderInputField.setText("");
+        initialBalanceInputField.setText("");
+
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         }

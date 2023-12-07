@@ -29,6 +29,8 @@ public class LoginPresenter implements LoginOutputBoundary {
     public void prepareSuccessView(LoginOutputData response) {
         if (response.getUsername().equals("cancelgobacktosignuppage2023")) {
             // Go back to signup page
+            this.signupViewModel.firePropertyChanged();
+
             this.viewManagerModel.setActiveView(signupViewModel.getViewName());
             this.viewManagerModel.firePropertyChanged();
         } else {

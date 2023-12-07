@@ -14,19 +14,19 @@ public class AccountInteractor implements AccountInputBoundary{
         String fee = "NA";
 
         if (bank.equals("BMO")) {
-             fee = String.valueOf(new BMO().getExchangeServiceFee());
+            fee = String.valueOf(new BMO().getExchangeServiceFee() * 100);
         } else if (bank.equals("CIBC")) {
-             fee = String.valueOf(new CIBC().getExchangeServiceFee());
+            fee = String.valueOf(new CIBC().getExchangeServiceFee() * 100);
         } else if (bank.equals("RBC")) {
-             fee = String.valueOf(new RBC().getExchangeServiceFee());
+            fee = String.valueOf(new RBC().getExchangeServiceFee() * 100);
         } else if (bank.equals("Scotia")) {
-             fee = String.valueOf(new Scotia().getExchangeServiceFee());
+            fee = String.valueOf(new Scotia().getExchangeServiceFee() * 100);
         } else if (bank.equals("TD")) {
-             fee = String.valueOf(new TD().getExchangeServiceFee());
+            fee = String.valueOf(new TD().getExchangeServiceFee() * 100);
         }
 
         AccountOutputData accountOutputData = new AccountOutputData(accountInputData.getUsername(),
-                accountInputData.getMethod(), fee, false);
+                accountInputData.getMethod(), fee + "%", false);
         accountPresenter.prepareSuccessView(accountOutputData);
     }
 }
