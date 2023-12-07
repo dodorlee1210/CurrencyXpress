@@ -95,6 +95,12 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         };
     }
 
+    /**
+     * Save the given user to the CSV file.
+     * If the user is new, then add the given user object to the user collection before
+     * saving it to the CSV file.
+     * @param user the user that has been added or modified
+     */
     @Override
     public void save(User user) {
         String username = user.getUsername();
@@ -106,11 +112,19 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         this.save();
     }
 
+    /**
+     * Get the user object from the given username
+     * @param username the username
+     * @return the user object corresponding to the username
+     */
     @Override
     public User get(String username) {
         return accounts.get(username);
     }
 
+    /**
+     * The method that modifies (update) the CSV file
+     */
     private void save() {
         BufferedWriter writer;
         try {
@@ -148,7 +162,10 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         }
     }
 
-    //Implemented
+    /**
+     * Clear all the users that have been signed up to this service
+     * @return the cleared username
+     */
     public ArrayList<String> clear() {
         ArrayList<String> usernames = new ArrayList<>();
 
