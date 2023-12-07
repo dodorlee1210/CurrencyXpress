@@ -56,7 +56,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     double initialBalance;
 
                     try {
-                        initialBalance = Double.parseDouble(col[headers.get("Initial Balance")]);
+                        initialBalance = Double.parseDouble(col[headers.get("Initial Balance(EUR)")]);
                     }
 
                     catch (Exception e) {
