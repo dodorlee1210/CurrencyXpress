@@ -28,6 +28,11 @@ public class SearchInteractor implements SearchInputBoundary {
         this.searchPresenter = searchOutputBoundary;
         this.dataAccessObject = dataAccessObject;
     }
+
+    /**
+     * @param date API parameter
+     * @return true if the date format is valid, false otherwise.
+     */
     public boolean checkDate(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false); // Make sure the date is strictly validated
@@ -47,19 +52,14 @@ public class SearchInteractor implements SearchInputBoundary {
         }
     }
 
-
-
+    /**
+     * @param searchInputData Object that stores necessary arguments for the API usuage
+     * @return String which represents the result
+     */
     public String execute(SearchInputData searchInputData) {
         String date = searchInputData.getDate();
         String baseCurrency = searchInputData.getBaseCurrency();
         String symbols = searchInputData.getSymbols();
-//        try {
-//            searchDataAccessObject = new SearchCurrency(searchInputData);
-//        } catch (
-//                IOException e) {
-//            throw new RuntimeException(e);
-//        }
-
 
         if (symbols.equals("HOME")) {
             searchPresenter.prepareSuccessView(new SearchOutputData("HOME",
@@ -69,9 +69,6 @@ public class SearchInteractor implements SearchInputBoundary {
             searchPresenter.prepareFailView(date + ": This date is not a valid date.");
             exchangeResult = "Error:" + " This date is not a valid date.";
 
-//        }   else if (!searchDataAccessObject.existsByCode(baseCurrency)) {
-//            searchPresenter.prepareFailView(baseCurrency + ": Currency Code is not valid as a base currency.");
-//            exchangeResult = "Error:" + " Currency code is not valid as a base currency.";
         } else {
             if (baseCurrency.equals(symbols)){
                 searchPresenter.prepareFailView("Exchange does not happen for same currency codes.");

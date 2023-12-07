@@ -11,14 +11,25 @@ public class SearchInputData {
         this.baseCurrency = baseCurrency;
         this.symbols = symbols;
     }
+
+    /**
+     * The date is required for the API usage
+     * @return the date for the currency rate search
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * @return the currency rate for the exchange
+     */
     public String getBaseCurrency() {
         return baseCurrency;
     }
 
+    /**
+     * @return the symbol which represents the currency code
+     */
     public String getSymbols() {
         return symbols;
     }
