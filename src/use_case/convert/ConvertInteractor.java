@@ -44,31 +44,35 @@ public class ConvertInteractor implements ConvertInputBoundary {
             convertPresenter.prepareFailView(symbolA + ": Currency Code does not exist (A).");
             exchangeResult = "Error: " + "Currency Code does not exist (A).";
         } else {
-            if (symbolB.equals(symbolA)) {
+            if (symbolB.equalsIgnoreCase(symbolA)) {
                 convertPresenter.prepareFailView("Exchange does not happen for same currency codes.");
                 exchangeResult = "Error: " + "Exchange does not happen for same currency codes.";
+            } else if (symbolB.equalsIgnoreCase("EUR") && !account.hasForeignCurrency(symbolB)) {
+                convertPresenter.prepareFailView("Account does not have specified currency.");
+                exchangeResult = "Error: " + "Account does not have specified currency";
+            } else if (Double.parseDouble(currencyB) > account.getBalance()) {
+                convertPresenter.prepareFailView("Account does not have enough balance to exchange.");
+                exchangeResult = "Error: " + "Account does not have enough balance to exchange";
             } else {
                 String[] currency = convertDataAccessInterface.get(symbolA).split(":");
                 double serviceFees = account.getBank().getExchangeServiceFee();
                 String exchangedAmount = convertDataAccessInterface.calculateExchange(currencyB, currency[1], serviceFees);
-                double leftover = account.getBalance() - Double.parseDouble(currencyB);
-//                String[][] result = {{symbolA, exchangedAmount}};
+                double newBalance = account.getBalance() - Double.parseDouble(currencyB);
 
-                ConvertOutputData convertOutputData = new ConvertOutputData(currency[0], exchangedAmount,
-                        leftover, account.getAllForeignCurrencies(), false);
-                convertPresenter.prepareSuccessView(convertOutputData);
-
-                double newAccountBalance = convertOutputData.getLeftAmount();
                 // round down the double value up to 2 decimal place
                 //   ex: 1.246   = 1.24
                 //   ex: 3.21194 = 3.21
                 double exchangedValue = BigDecimal.valueOf(Double.parseDouble(exchangedAmount)).setScale(2, RoundingMode.HALF_DOWN).doubleValue();
 
                 exchangeResult = "Convert " + symbolB + " to " + symbolA + "\n" +
-                        exchangedValue + "\n" + "Balance: " + newAccountBalance;
+                        "Exchanged: " + exchangedValue + "symbolA" + "\n" + "Balance: " + newBalance;
 
-                updateUserAccount(account, newAccountBalance, symbolA, exchangedValue);
+                updateUserAccount(account, newBalance, symbolA, exchangedValue);
                 addExchangeHistory(account, symbolB, symbolA, exchangedValue, serviceFees);
+                dataAccessObject.save(user);  // update csv file for the persistent service
+
+                convertPresenter.prepareSuccessView(new ConvertOutputData(currency[0], exchangedAmount,
+                        newBalance, account.getAllForeignCurrencies(), false));
             }
         }
 
@@ -81,8 +85,9 @@ public class ConvertInteractor implements ConvertInputBoundary {
         userAccount.setForeignCurrency(newCurrencyCode, newCurrencyBalance);
     }
 
-    private void addExchangeHistory(Account userAccount, String currencyCode,
-                                    String newCurrencyCode, double exchangedValue, double serviceFee) {
+    private void addExchangeHistory(Account userAccount, String currencyCode, String newCurrencyCode,
+                                    double exchangedValue, double serviceFee) {
         userAccount.addExchangeHistory(new ExchangeHistory(currencyCode, newCurrencyCode, exchangedValue, serviceFee));
     }
 }
+

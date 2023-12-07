@@ -75,6 +75,10 @@ public class Account {
         return balance;
     }
 
+    /**
+     * @return the list of all foreign currencies saved in this account in the format of
+     *         [ ["currency code", "corresponding balance"], ... ]
+     */
     public String[][] getAllForeignCurrencies() {
         int i = 0;
         String[][] foreignCurrencies = new String[foreignCurrency.size()][];
@@ -86,4 +90,21 @@ public class Account {
 
         return foreignCurrencies;
     }
+
+    /**
+     * Return whether the account has at least 1 foreign currency
+     * @return true if the account has a foreign currency. Otherwise, false.
+     */
+    public boolean hasForeignCurrency() {
+        return !foreignCurrency.isEmpty();
+    }
+
+    /**
+     * Return whether the account has a specified foreign currency
+     * @return true if the account has a specified foreign currency. Otherwise, false.
+     */
+    public boolean hasForeignCurrency(String currencyCode) {
+        return foreignCurrency.containsKey(currencyCode);
+    }
 }
+
