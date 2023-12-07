@@ -47,7 +47,7 @@ public class ConvertInteractor implements ConvertInputBoundary {
             if (symbolB.equalsIgnoreCase(symbolA)) {
                 convertPresenter.prepareFailView("Exchange does not happen for same currency codes.");
                 exchangeResult = "Error: " + "Exchange does not happen for same currency codes.";
-            } else if (symbolB.equalsIgnoreCase("EUR") && !account.hasForeignCurrency(symbolB)) {
+            } else if (!symbolB.equalsIgnoreCase("EUR") && !account.hasForeignCurrency(symbolB)) {
                 convertPresenter.prepareFailView("Account does not have specified currency.");
                 exchangeResult = "Error: " + "Account does not have specified currency";
             } else if (Double.parseDouble(currencyB) > account.getBalance()) {
@@ -65,7 +65,7 @@ public class ConvertInteractor implements ConvertInputBoundary {
                 double exchangedValue = BigDecimal.valueOf(Double.parseDouble(exchangedAmount)).setScale(2, RoundingMode.HALF_DOWN).doubleValue();
 
                 exchangeResult = "Convert " + symbolB + " to " + symbolA + "\n" +
-                        "Exchanged: " + exchangedValue + "symbolA" + "\n" + "Balance: " + newBalance;
+                        "Exchanged: " + exchangedValue + " " + symbolA + "\n" + "Balance: " + newBalance;
 
                 updateUserAccount(account, newBalance, symbolA, exchangedValue);
                 addExchangeHistory(account, symbolB, symbolA, exchangedValue, serviceFees);
