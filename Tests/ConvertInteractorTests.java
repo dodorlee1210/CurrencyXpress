@@ -33,22 +33,22 @@ public class ConvertInteractorTests {
         assertEquals("Error: Account does not have specified currency", error);
     }
 
-//    @Test
-//    public void testConvertInteractorErrorCase2() throws IOException {
-//        ConvertDataAccessInterface convertDataAccessInterface = new CurrencyConverter();
-//        ConvertOutputBoundary convertOutputBoundary =
-//                new ConvertPresenter(new ViewManagerModel(), new ConvertViewModel(), new AccountViewModel());
-//        FileUserDataAccessObject dataAccessObject = new FileUserDataAccessObject("user.csv",
-//                (username, password, bank, initialBalance, accountHolder) ->
-//                        new CommonUser("seok", "1234", new TD(), 10000, "minseok"));
-//
-//        ConvertInteractor convertInteractor = new ConvertInteractor(convertDataAccessInterface,
-//                convertOutputBoundary, dataAccessObject);
-//
-//        String error = convertInteractor.execute(new ConvertInputData("EUR", "100", "KK", "seok"));
-//
-//        assertEquals("Error: Currency Code does not exist (A).", error);
-//    }
+    @Test
+    public void testConvertInteractorErrorCase2() throws IOException {
+        ConvertDataAccessInterface convertDataAccessInterface = new CurrencyConverter();
+        ConvertOutputBoundary convertOutputBoundary =
+                new ConvertPresenter(new ViewManagerModel(), new ConvertViewModel(), new AccountViewModel());
+        FileUserDataAccessObject dataAccessObject = new FileUserDataAccessObject("user.csv",
+                (username, password, bank, initialBalance, accountHolder) ->
+                        new CommonUser("seok", "1234", new TD(), 10000, "minseok"));
+
+        ConvertInteractor convertInteractor = new ConvertInteractor(convertDataAccessInterface,
+                convertOutputBoundary, dataAccessObject);
+
+        String error = convertInteractor.execute(new ConvertInputData("EUR", "100", "A10", "seok"));
+
+        assertEquals("Error: Currency Code does not exist (A).", error);
+    }
 
     @Test
     public void testConvertInteractorErrorCase3() throws IOException {
