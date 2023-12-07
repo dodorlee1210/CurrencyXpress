@@ -9,11 +9,19 @@ public class Scotia implements Bank {
     private final double exchangeServiceFee = 0.02;
     private final HashMap<String, Account> accounts = new HashMap<>();
 
+    /**
+     * The Scotia bank's exchange service fee charge (%) represented as double value
+     * @return Scotia's exchange service fee
+     */
     @Override
     public double getExchangeServiceFee() {
         return exchangeServiceFee;
     }
 
+    /**
+     * Get the bank name
+     * @return the bank name: Scotia
+     */
     @Override
     public String getBankName() {
         return bankName;
