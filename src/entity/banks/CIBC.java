@@ -11,7 +11,7 @@ public class CIBC implements Bank {
 
     /**
      * The CIBC bank's exchange service fee charge (%) represented as double value
-     * @return BMO's exchange service CIBC
+     * @return CIBC's exchange service fee
      */
     @Override
     public double getExchangeServiceFee() {
