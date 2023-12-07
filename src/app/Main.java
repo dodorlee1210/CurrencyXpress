@@ -41,7 +41,7 @@ public class Main {
         AccountViewModel accountViewModel = new AccountViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         ConvertViewModel convertViewModel = new ConvertViewModel();
-//        SearchViewModel searchViewModel = new SearchViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         CurrencyConverter convertDataAccessObject;
@@ -66,12 +66,15 @@ public class Main {
         views.add(loginView, loginView.viewName);
 
         AccountView accountView = AccountUseCaseFactory.create(viewManagerModel, accountViewModel, convertViewModel,
-                loginViewModel);
+                loginViewModel, searchViewModel);
         views.add(accountView, accountView.viewName);
 
         ConvertView convertView = ConvertUseCaseFactory.create(viewManagerModel, convertViewModel, accountViewModel,
                 convertDataAccessObject, userDataAccessObject);
         views.add(convertView, convertView.viewName);
+
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, userDataAccessObject, accountViewModel);
+        views.add(searchView, searchView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

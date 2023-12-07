@@ -7,19 +7,19 @@ public class SearchInputData {
     private String symbols;
 
     public SearchInputData(String date, String baseCurrency, String symbols) {
-        this.date = "to be input by user";
-        this.baseCurrency = "to be input by user";
-        this.symbols = "to be input by user";
+        this.date = date;
+        this.baseCurrency = baseCurrency;
+        this.symbols = symbols;
     }
-    String getDate() {
+    public String getDate() {
         return date;
     }
 
-    String getBaseCurrency() {
+    public String getBaseCurrency() {
         return baseCurrency;
     }
 
-    String getSymbols() {
+    public String getSymbols() {
         return symbols;
     }
 

@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.convert.ConvertState;
 import interface_adapter.search_exchangerate.SearchController;
 import interface_adapter.search_exchangerate.SearchState;
 import interface_adapter.search_exchangerate.SearchViewModel;
@@ -27,8 +28,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final JLabel baseCurrencyErrorField = new JLabel();
     private final JLabel symbolsErrorField = new JLabel();
 
-    private final JButton searchButton;
-    private final JButton homeButton;
+    private final JButton search;
+    private final JButton home;
 
     public SearchView(SearchViewModel searchViewModel, SearchController searchController) {
         this.searchViewModel = searchViewModel;
@@ -46,17 +47,35 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 new JLabel("Enter Symbols"), symbolsInputField);
 
         JPanel buttons = new JPanel();
-        searchButton = new JButton(SearchViewModel.Search_BUTTON_LABEL);
-        buttons.add(searchButton);
-        homeButton = new JButton(SearchViewModel.HOME_BUTTON_LABEL);
-        buttons.add(homeButton);
+        search = new JButton(SearchViewModel.Search_BUTTON_LABEL);
+        buttons.add(search);
+        home = new JButton(SearchViewModel.HOME_BUTTON_LABEL);
+        buttons.add(home);
 
-        searchButton.addActionListener(
+        search.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(searchButton)) {
+                        if (evt.getSource().equals(search)) {
                             SearchState currentState = searchViewModel.getState();
+                            displayPopUpWindow(searchController.execute(
+                                    currentState.getDate(),
+                                    currentState.getBaseCurrency(),
+                                    currentState.getSymbols())
+                            );
+                        }
+                    }
+                }
+        );
+
+        home.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(home)) {
+                            SearchState currentState = searchViewModel.getState();
+                            currentState.setSymbols("HOME");
+
                             searchController.execute(
                                     currentState.getDate(),
                                     currentState.getBaseCurrency(),
@@ -66,8 +85,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
-
-        homeButton.addActionListener(this);
 
         dateInputField.addKeyListener(new KeyListener() {
             @Override
@@ -153,4 +170,10 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
         // Additional fields can be set here based on your requirements
     }
+    public void displayPopUpWindow(String msg) {
+        JOptionPane.showMessageDialog(this,
+                msg, "Search Result", JOptionPane.INFORMATION_MESSAGE);
+    }
 }
+
+
